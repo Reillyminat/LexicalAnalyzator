@@ -43,7 +43,9 @@ namespace LexicalAnalyzerApplication
 
         public void SafeToFile()
         {
-
+            int x = 10;
+            x++;
+            x =+ 2;
         }
     }
 }
