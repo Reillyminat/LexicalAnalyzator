@@ -13,7 +13,7 @@ namespace LexicalAnalyzerApplication
         public TypeTabel()
         {
             _types = new List<string>();
-
+            //types
             _types.Add("int");
             _types.Add("char");
             _types.Add("double");
