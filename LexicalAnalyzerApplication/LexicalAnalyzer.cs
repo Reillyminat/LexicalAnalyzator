@@ -14,9 +14,13 @@ namespace LexicalAnalyzerApplication
         OperationTable _operationTable;
         DelimiterTable _delimiterTable;
         LiteralTable _literalTable;
-
         LexemTable _lexemTable;
 
+        string _code;
+        int _lexemBegin;
+        int _forward;
+        int _codeLength;
+        string _subString;
 
         public LexicalAnalyzer()
         {
@@ -28,55 +32,55 @@ namespace LexicalAnalyzerApplication
             _literalTable = new LiteralTable();
             _lexemTable = new LexemTable();
         }
-
-        public string Tokenizer(string code)
+        public void SetCode(string code)
         {
-            int lexemBegin = 0;
-            int forward = 0;
-
-            int codeLength = code.Length;
-
-            while (lexemBegin < codeLength)
-            {
-                string subString = "";
-
-                bool foundDelimiter = false;
-
-                do
-                {
-                    string chr = code[lexemBegin + forward].ToString();
-                    foundDelimiter = _delimiterTable.Find(chr);
-                    
-                    if (foundDelimiter)
-                    {
-                        bool foundType = _typeTable.Find(subString);
-
-                        bool foundKeyWord = _keyWordsTable.Find(subString);
-
-                        bool foundIdentifier = _identTable.Find(subString);
-                    }
-                    else
-                    {
-                        subString = subString + code[lexemBegin + forward];
-                    }
-
-                    forward += 1;
-                }
-                while (!foundDelimiter);
-
-                lexemBegin += forward;
-
-                forward = 0;
- 
-            }
-
-            _typeTable.SafeToFile();
-            return "";
+            _code = code;
+            _codeLength = _code.Length;
+            _lexemBegin = 0;
+            _forward = 0;
+            _subString = "";
         }
-
-        private void FoundKeyWord()
+        public int Tokenizer()
         {
+            if (_lexemBegin > _codeLength)
+                return 1;
+            _forward = 0;
+            bool foundDelimiter = false;
+            do
+            {
+                string chr = _code[_lexemBegin + _forward].ToString();
+                foundDelimiter = _delimiterTable.Find(chr);
 
+                if (foundDelimiter)
+                {
+                    if (_typeTable.Find(_subString))
+                    {
+                        _lexemBegin += _forward;
+                        _typeTable.SaveToFile();
+                        return 3;
+                    }
+                    if (_keyWordsTable.Find(_subString))
+                    {
+                        _lexemBegin += _forward;
+                        return 4;
+                    }
+                    if (_identTable.Find(_subString))
+                    {
+                        _lexemBegin += _forward;
+                        _identTable.SaveToFile();
+                        return 5;
+                    }
+                }
+                else
+                {
+                    _subString = _subString + _code[_lexemBegin + _forward];
+                }
+                if (_subString.Length > 100)
+                    return 0;
+                _forward += 1;
+            }
+            while (!foundDelimiter);
+            return 2;
         }
 
         private bool FindLexemType(string subString)
