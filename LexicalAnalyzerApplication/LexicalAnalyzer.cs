@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalyzerApplication
 {
-    class LexicalAnalyzer
+    enum LexemAnaluzerError { OK, Error}
+
+    public class LexicalAnalyzer
     {
         TypeTabel _typeTable;
         IdentifierTable _identTable;
@@ -17,34 +19,42 @@ namespace LexicalAnalyzerApplication
         LexemTable _lexemTable;
 
         string _code;
-        int _lexemBegin;
-        int _forward;
-        int _codeLength;
-        string _subString;
+
+
+        public LexemTable LexemTable { get => _lexemTable; set => _lexemTable = value; }
+        public IdentifierTable IdentTable { get => _identTable; set => _identTable = value; }
+        public LiteralTable LiteralTable { get => _literalTable; set => _literalTable = value; }
+
 
         public LexicalAnalyzer()
         {
             _typeTable = new TypeTabel();
-            _identTable = new IdentifierTable();
+            IdentTable = new IdentifierTable();
             _keyWordsTable = new KeyWordsTable();
             _operationTable = new OperationTable();
             _delimiterTable = new DelimiterTable();
             _literalTable = new LiteralTable();
             _lexemTable = new LexemTable();
         }
+
         public void SetCode(string code)
         {
             _code = code;
-            _codeLength = _code.Length;
-            _lexemBegin = 0;
-            _forward = 0;
-            _subString = "";
         }
+
         public int Tokenizer()
         {
+            int _codeLength = _code.Length;
+            int _lexemBegin = 0;
+            int _forward = 0;
+
+            string _subString = "";
+
             if (_lexemBegin > _codeLength)
                 return 1;
+
             _forward = 0;
+
             bool foundDelimiter = false;
             do
             {
@@ -56,7 +66,6 @@ namespace LexicalAnalyzerApplication
                     if (_typeTable.Find(_subString))
                     {
                         _lexemBegin += _forward;
-                        _typeTable.SaveToFile();
                         return 3;
                     }
                     if (_keyWordsTable.Find(_subString))
@@ -64,10 +73,10 @@ namespace LexicalAnalyzerApplication
                         _lexemBegin += _forward;
                         return 4;
                     }
-                    if (_identTable.Find(_subString))
+                    if (IdentTable.Find(_subString))
                     {
                         _lexemBegin += _forward;
-                        _identTable.SaveToFile();
+                        IdentTable.SaveToFile();
                         return 5;
                     }
                 }
@@ -88,5 +97,7 @@ namespace LexicalAnalyzerApplication
             return false;
         }
 
+
+        
     }
 }

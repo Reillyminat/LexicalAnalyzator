@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalyzerApplication
 {
-    class LiteralTable
+    public class LiteralTable
     {
     }
 }

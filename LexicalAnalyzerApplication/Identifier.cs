@@ -8,7 +8,7 @@ namespace LexicalAnalyzerApplication
 {
    // enum IdentifierType { SimpleType, Structure, Array }
 
-    class Identifier
+    public class Identifier
     {
         string _name;
         int _type_number;

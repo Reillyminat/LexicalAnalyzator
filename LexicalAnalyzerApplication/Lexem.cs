@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalyzerApplication
 {
-    enum LexemType { Identifier, KeyWord, Delimeter, Operation, SimpleType}
+    public enum LexemType { Identifier, KeyWord, Delimeter, Operation, SimpleType}
 
-    class Lexem
+    public class Lexem
     {
         LexemType _lexemType;
         int _codePosition;

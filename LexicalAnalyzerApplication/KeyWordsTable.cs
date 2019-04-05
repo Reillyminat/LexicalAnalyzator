@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 namespace LexicalAnalyzerApplication
 {
-    class KeyWordsTable
+    public class KeyWordsTable
     {
         List<string> _keyWordsTable;
 
@@ -42,15 +42,6 @@ namespace LexicalAnalyzerApplication
             {
                 _keyWordsTable.Add(found_name);
                 return true;
-            }
-        }
-
-        public void SafeToFile()
-        {
-            StreamWriter sw = new StreamWriter(@"D:\Работы по программированию\KeywordsTable.txt", true, System.Text.Encoding.Default);
-            for (int i = 0; i < _keyWordsTable.Count; i++)
-            {
-                sw.WriteLine(_keyWordsTable[i]);
             }
         }
     }

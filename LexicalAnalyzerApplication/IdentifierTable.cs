@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalyzerApplication
 {
-    class IdentifierTable
+    public class IdentifierTable
     {
         List<Identifier> _idents;
 

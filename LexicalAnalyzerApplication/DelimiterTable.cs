@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalyzerApplication
 {
-    class DelimiterTable
+    public class DelimiterTable
     {
         List<string> _delimeters;
 
