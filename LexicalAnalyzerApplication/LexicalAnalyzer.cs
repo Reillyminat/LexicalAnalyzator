@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalyzerApplication
 {
-    enum LexemAnaluzerError { OK, Error}
+    public enum LexemAnalyzerState { OK, Error}
 
     public class LexicalAnalyzer
     {
@@ -42,7 +42,7 @@ namespace LexicalAnalyzerApplication
             _code = code;
         }
 
-        public int Tokenizer()
+        public LexemAnalyzerState Tokenizer()
         {
             int _codeLength = _code.Length;
             int _lexemBegin = 0;
@@ -50,8 +50,8 @@ namespace LexicalAnalyzerApplication
 
             string _subString = "";
 
-            if (_lexemBegin > _codeLength)
-                return 1;
+          //  if (_lexemBegin > _codeLength)
+              //  return 1;
 
             _forward = 0;
 
@@ -66,18 +66,18 @@ namespace LexicalAnalyzerApplication
                     if (_typeTable.Find(_subString))
                     {
                         _lexemBegin += _forward;
-                        return 3;
+                      //  return 3;
                     }
                     if (_keyWordsTable.Find(_subString))
                     {
                         _lexemBegin += _forward;
-                        return 4;
+                       // return 4;
                     }
                     if (IdentTable.Find(_subString))
                     {
                         _lexemBegin += _forward;
                         IdentTable.SaveToFile();
-                        return 5;
+                        //return 5;
                     }
                 }
                 else
@@ -89,7 +89,8 @@ namespace LexicalAnalyzerApplication
                 _forward += 1;
             }
             while (!foundDelimiter);
-            return 2;
+
+            return LexemAnalyzerState.OK;
         }
 
         private bool FindLexemType(string subString)

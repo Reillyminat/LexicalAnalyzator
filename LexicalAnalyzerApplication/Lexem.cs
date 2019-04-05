@@ -13,6 +13,7 @@ namespace LexicalAnalyzerApplication
         LexemType _lexemType;
         int _codePosition;
         int _lineNumber;
+        string _name;
 
         public int LineNumber { get => _lineNumber; set => _lineNumber = value; }
         public int CodePosition { get => _codePosition; set => _codePosition = value; }
@@ -22,13 +23,15 @@ namespace LexicalAnalyzerApplication
         {
             _codePosition = -1;
             _lineNumber = -1;
+            _name = "";
         }
 
-        public Lexem(LexemType lexemType, int codePosition, int lineNumber)
+        public Lexem(string name, LexemType lexemType, int codePosition, int lineNumber)
         {
             _lexemType = LexemType;
             _codePosition = codePosition;
             _lineNumber = lineNumber;
+            _name = name;
         }
     }
 }

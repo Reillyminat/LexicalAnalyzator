@@ -83,7 +83,9 @@ namespace LexicalAnalyzerApplication
             bool finish=true;
             while (finish)
             {
-                result = lexicalAnalyzer.Tokenizer();
+                //result = lexicalAnalyzer.Tokenizer();
+
+                result = 3;
                 switch (result)
                 {
                     case 0:

@@ -17,9 +17,24 @@ namespace UnitTestProject1
 
             var state =  lex.Tokenizer();
 
-            //lex.LexemTable.Find(new Lexem(""))
+            bool found = false;
 
-          
+            found = lex.LexemTable.Find(new Lexem("ціле", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("дійсне", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("логіка", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("символ", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+
         }
     }
 }
