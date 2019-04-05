@@ -88,12 +88,14 @@ namespace LexicalAnalyzerApplication
                 {
                     case 0:
                         MessageBox.Show("Ошибка лексического анализа. Слишком длинная лексема.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        finish = false;
                         break;
                     case 1:
                         finish = false;
                         break;
                     case 2:
                         MessageBox.Show("Ошибка лексического анализа. Невозможно распознать лексему.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        finish = false;
                         break;
                     case 3:
 
