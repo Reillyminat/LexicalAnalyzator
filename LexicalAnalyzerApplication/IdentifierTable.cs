@@ -13,7 +13,6 @@ namespace LexicalAnalyzerApplication
         public IdentifierTable()
         {
             _idents = new List<Identifier>();
-
         }
 
         public int Count { get => _idents.Count; }
@@ -32,6 +31,7 @@ namespace LexicalAnalyzerApplication
             else
                 return true;
         }
+
         public void SaveToFile()
         {
 

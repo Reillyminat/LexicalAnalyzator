@@ -25,7 +25,6 @@ namespace LexicalAnalyzerApplication
             _delimeters.Add(",");
             _delimeters.Add("[");
             _delimeters.Add("]");
-            _delimeters.Add("\"");
         }
 
         public int Count { get => _delimeters.Count; }

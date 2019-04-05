@@ -127,6 +127,11 @@ namespace LexicalAnalyzerTests
             Assert.IsTrue(found);
         }
 
+        public void Tokenizer_Recognize_Identifier()
+        {
+
+        }
+
 
     }
 }

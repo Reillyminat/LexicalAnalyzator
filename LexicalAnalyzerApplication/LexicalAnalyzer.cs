@@ -62,31 +62,30 @@ namespace LexicalAnalyzerApplication
                 if (foundDelimiter)
                 {
                     if (_typeTable.Find(_subString))
-                    {
-                        _lexemBegin += _forward;
+                    { 
+                        _lexemTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, 0));
 
-                        _lexemTable.Add(new Lexem(_subString, LexemType.SimpleType, 0, 0));
+                        _lexemBegin += _forward;
 
                     }
 
                     if (_keyWordsTable.Find(_subString))
                     {
-                        _lexemBegin += _forward;
+                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, 0));
 
-                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, 0, 0));
+                        _lexemBegin += _forward;
                     }
 
                     if(_operationTable.Find(_subString))
                     {
-                        _lexemBegin += _forward;
+                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, 0));
 
-                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, 0, 0));
+                        _lexemBegin += _forward;
                     }
 
                     if (IdentTable.Find(_subString))
                     {
                         _lexemBegin += _forward;
-                        IdentTable.SaveToFile();
                     }
                 }
                 else
@@ -104,9 +103,21 @@ namespace LexicalAnalyzerApplication
             return LexemAnalyzerState.OK;
         }
 
-        private bool FindLexemType(string subString)
+        //Method count '\n' before lexem
+        private int CountLexemLinePosition(string code, int posEnd)
         {
-            return false;
+            int count = 0;
+
+            for (int i = 0; i < code.Length; i++)
+            {
+                if (code[i] == '\n')
+                    count++;
+
+                if (i == posEnd)
+                    break;
+            }
+
+            return count;
         }
 
 

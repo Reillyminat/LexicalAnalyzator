@@ -147,5 +147,7 @@ namespace LexicalAnalyzerApplication
             if (frontStack.Count == 0)
                 toolStripButton2.Enabled = false;
         }
+
+      
     }
 }
