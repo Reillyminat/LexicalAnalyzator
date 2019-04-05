@@ -32,5 +32,9 @@ namespace LexicalAnalyzerApplication
             else
                 return true;
         }
+        public void SaveToFile()
+        {
+
+        }
     }
 }

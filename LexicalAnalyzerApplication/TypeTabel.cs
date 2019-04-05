@@ -40,7 +40,7 @@ namespace LexicalAnalyzerApplication
             }
         }
 
-        public void SafeToFile()
+        public void SaveToFile()
         {
 
         }

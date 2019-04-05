@@ -77,8 +77,35 @@ namespace LexicalAnalyzerApplication
         }
         private void buttonTranslate_Click(object sender, EventArgs e)
         {
+            int result;
             backStack.Push(richTextBoxCode.Text);
-            lexicalAnalyzer.Tokenizer(richTextBoxCode.Text);
+            lexicalAnalyzer.SetCode(richTextBoxCode.Text);
+            bool finish=true;
+            while (finish)
+            {
+                result = lexicalAnalyzer.Tokenizer();
+                switch (result)
+                {
+                    case 0:
+                        MessageBox.Show("Ошибка лексического анализа. Слишком длинная лексема.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case 1:
+                        finish = false;
+                        break;
+                    case 2:
+                        MessageBox.Show("Ошибка лексического анализа. Невозможно распознать лексему.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    case 5:
+
+                        break;
+                }
+            }
         }
 
         private void richTextBox2_VScroll(object sender, EventArgs e)
