@@ -19,14 +19,14 @@ namespace LexicalAnalyzerApplication
             _operations.Add("*");
             _operations.Add("/");
             _operations.Add("=");
-            /*_operations.Add("не_дорівнює");
+            _operations.Add("!=");
             _operations.Add("&&");
             _operations.Add("||");
             _operations.Add("<");
             _operations.Add(">");
             _operations.Add("==");
             _operations.Add("<=");
-            _operations.Add(">=");*/
+            _operations.Add(">=");
         }
 
         public int Count { get => _operations.Count; }
@@ -41,11 +41,5 @@ namespace LexicalAnalyzerApplication
                 return true;
         }
 
-        public void SafeToFile()
-        {
-            int x = 10;
-            x++;
-            x =+ 2;
-        }
     }
 }

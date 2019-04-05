@@ -76,6 +76,13 @@ namespace LexicalAnalyzerApplication
                         _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, 0, 0));
                     }
 
+                    if(_operationTable.Find(_subString))
+                    {
+                        _lexemBegin += _forward;
+
+                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, 0, 0));
+                    }
+
                     if (IdentTable.Find(_subString))
                     {
                         _lexemBegin += _forward;

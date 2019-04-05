@@ -7,7 +7,7 @@ namespace LexicalAnalyzerTests
     public class LexicalAnalyzerTest
     {
         [TestMethod]
-        public void Tokenize_Recongnize_JustAllSimpleTypes()
+        public void Tokenize_Recongnize_AllSimpleTypes()
         {
             string code = @"ціле дійсне логіка символ";
 
@@ -38,7 +38,7 @@ namespace LexicalAnalyzerTests
         }
 
         [TestMethod]
-        public void Tokenize_Recongnize_JustAllKeyWords()
+        public void Tokenize_Recongnize_AllKeyWords()
         {
             string code = @"якщо доки інакше початок кінець повернути";
 
@@ -71,6 +71,59 @@ namespace LexicalAnalyzerTests
 
             found = false;
             found = lex.LexemTable.Find(new Lexem("повернути", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+        }
+
+        [TestMethod]
+        public void Tokenize_Recognize_AllOperations()
+        {
+            string code = @"+ - * / == != > < >= <=";
+
+            LexicalAnalyzer lex = new LexicalAnalyzer();
+
+            lex.SetCode(code);
+
+            var state = lex.Tokenizer();
+
+            bool found = false;
+
+            found = lex.LexemTable.Find(new Lexem("*", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("/", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("+", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("-", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem(">", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("<", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("==", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("!=", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem(">=", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("<=", LexemType.SimpleType, 0, 0));
             Assert.IsTrue(found);
         }
 
