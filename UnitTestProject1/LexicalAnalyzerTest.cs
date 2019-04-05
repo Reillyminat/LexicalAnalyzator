@@ -1,13 +1,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LexicalAnalyzerApplication;
 
-namespace UnitTestProject1
+namespace LexicalAnalyzerTests
 {
     [TestClass]
     public class LexicalAnalyzerTest
     {
         [TestMethod]
-        public void Test_Recongnize_JustAllSimpleTypes()
+        public void Tokenize_Recongnize_JustAllSimpleTypes()
         {
             string code = @"ціле дійсне логіка символ";
 
@@ -36,5 +36,44 @@ namespace UnitTestProject1
 
 
         }
+
+        [TestMethod]
+        public void Tokenize_Recongnize_JustAllKeyWords()
+        {
+            string code = @"якщо доки інакше початок кінець повернути";
+
+            LexicalAnalyzer lex = new LexicalAnalyzer();
+
+            lex.SetCode(code);
+
+            var state = lex.Tokenizer();
+
+            bool found = false;
+
+            found = lex.LexemTable.Find(new Lexem("якщо", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("доки", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("інакше", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("початок", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("кінець", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+
+            found = false;
+            found = lex.LexemTable.Find(new Lexem("повернути", LexemType.SimpleType, 0, 0));
+            Assert.IsTrue(found);
+        }
+
+
     }
 }

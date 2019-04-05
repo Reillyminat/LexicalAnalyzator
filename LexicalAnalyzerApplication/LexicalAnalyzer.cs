@@ -50,15 +50,13 @@ namespace LexicalAnalyzerApplication
 
             string _subString = "";
 
-          //  if (_lexemBegin > _codeLength)
-              //  return 1;
-
             _forward = 0;
 
             bool foundDelimiter = false;
             do
             {
                 string chr = _code[_lexemBegin + _forward].ToString();
+
                 foundDelimiter = _delimiterTable.Find(chr);
 
                 if (foundDelimiter)
@@ -66,26 +64,32 @@ namespace LexicalAnalyzerApplication
                     if (_typeTable.Find(_subString))
                     {
                         _lexemBegin += _forward;
-                      //  return 3;
+
+                        _lexemTable.Add(new Lexem(_subString, LexemType.SimpleType, 0, 0));
+
                     }
+
                     if (_keyWordsTable.Find(_subString))
                     {
                         _lexemBegin += _forward;
-                       // return 4;
+
+                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, 0, 0));
                     }
+
                     if (IdentTable.Find(_subString))
                     {
                         _lexemBegin += _forward;
                         IdentTable.SaveToFile();
-                        //return 5;
                     }
                 }
                 else
                 {
                     _subString = _subString + _code[_lexemBegin + _forward];
                 }
+
                 if (_subString.Length > 100)
                     return 0;
+
                 _forward += 1;
             }
             while (!foundDelimiter);
