@@ -61,32 +61,30 @@ namespace LexicalAnalyzerApplication
 
                 if (foundDelimiter)
                 {
+                   //Count '\n' before lexem
+                    int lexemLinePositon = CountLexemLinePosition(_code, _lexemBegin);
+
                     if (_typeTable.Find(_subString))
                     { 
-                        _lexemTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, 0));
-
-                        _lexemBegin += _forward;
-
+                        _lexemTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon));
                     }
 
                     if (_keyWordsTable.Find(_subString))
                     {
-                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, 0));
-
-                        _lexemBegin += _forward;
+                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, lexemLinePositon));
                     }
 
                     if(_operationTable.Find(_subString))
                     {
-                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, 0));
-
-                        _lexemBegin += _forward;
+                        _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, lexemLinePositon));
                     }
 
                     if (IdentTable.Find(_subString))
                     {
-                        _lexemBegin += _forward;
+                       // _identTable.Add(new Identifier())
                     }
+
+                    _lexemBegin += _forward;
                 }
                 else
                 {
