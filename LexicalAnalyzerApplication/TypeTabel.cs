@@ -18,7 +18,7 @@ namespace LexicalAnalyzerApplication
             _types.Add("char");
             _types.Add("double");
             _types.Add("bool");
-            StreamWriter sw = new StreamWriter(@"D:\Работы по программированию\TypesTable.txt", true, Encoding.Default);
+            StreamWriter sw = new StreamWriter(new FileStream(@"D:\Работы по программированию\TypesTable.txt", FileMode.Create, FileAccess.Write));
             foreach (string i in _types)
             {
                 sw.WriteLine(i);
@@ -35,7 +35,6 @@ namespace LexicalAnalyzerApplication
                 return false;
             else
             {
-                _types.Add(found_name);
                 return true;
             }
         }

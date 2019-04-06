@@ -16,7 +16,7 @@ namespace LexicalAnalyzerApplication
             
             _keyWordsTable.Add("функція");
             _keyWordsTable.Add("якщо");
-            /*_keyWordsTable.Add("інакше");
+            _keyWordsTable.Add("інакше");
             _keyWordsTable.Add("доки");
             _keyWordsTable.Add("початок");
             _keyWordsTable.Add("кінець");
@@ -28,7 +28,6 @@ namespace LexicalAnalyzerApplication
             _keyWordsTable.Add("символ");
             _keyWordsTable.Add("дійсне");
             _keyWordsTable.Add("логіка");
-              */
         }
         public int Count { get => _keyWordsTable.Count; }
 
@@ -40,7 +39,6 @@ namespace LexicalAnalyzerApplication
                 return false;
             else
             {
-                _keyWordsTable.Add(found_name);
                 return true;
             }
         }
