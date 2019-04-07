@@ -18,7 +18,7 @@ namespace LexicalAnalyzerApplication
         public int LineNumber { get => _lineNumber; set => _lineNumber = value; }
         public int CodePosition { get => _codePosition; set => _codePosition = value; }
         internal LexemType LexemType { get => _lexemType; set => _lexemType = value; }
-
+        public string Name { get => _name; set => _name = value; }
         public Lexem()
         {
             _codePosition = -1;

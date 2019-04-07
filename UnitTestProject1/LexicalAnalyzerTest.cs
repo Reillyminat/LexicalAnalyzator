@@ -131,7 +131,12 @@ namespace LexicalAnalyzerTests
         {
 
         }
-
-
+        public void Tokenizer_Recognize_Literal()
+        {
+            string code = "\"text\"";
+            LiteralTable lit = new LiteralTable();
+            lit.Find(code);
+            Assert.AreEqual();
+        }
     }
 }

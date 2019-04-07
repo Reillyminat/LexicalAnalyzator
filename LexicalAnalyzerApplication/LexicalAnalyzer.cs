@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalyzerApplication
 {
-    public enum LexemAnalyzerState { OK, Error}
+    public enum LexemAnalyzerState { OK, SizeError, IdentifyError, EOF}
 
     public class LexicalAnalyzer
     {
@@ -55,6 +55,8 @@ namespace LexicalAnalyzerApplication
             bool foundDelimiter = false;
             do
             {
+                if (_code.Length == _lexemBegin + _forward)
+                    return LexemAnalyzerState.EOF;
                 string chr = _code[_lexemBegin + _forward].ToString();
 
                 foundDelimiter = _delimiterTable.Find(chr);
@@ -67,21 +69,25 @@ namespace LexicalAnalyzerApplication
                     if (_typeTable.Find(_subString))
                     { 
                         _lexemTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon));
+                        return LexemAnalyzerState.OK;
                     }
 
                     if (_keyWordsTable.Find(_subString))
                     {
                         _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, lexemLinePositon));
+                        return LexemAnalyzerState.OK;
                     }
 
                     if(_operationTable.Find(_subString))
                     {
                         _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, lexemLinePositon));
+                        return LexemAnalyzerState.OK;
                     }
 
                     if (IdentTable.Find(_subString))
                     {
-                       // _identTable.Add(new Identifier())
+                        _identTable.Add(new Identifier());
+                        return LexemAnalyzerState.OK;
                     }
 
                     _lexemBegin += _forward;
@@ -92,13 +98,12 @@ namespace LexicalAnalyzerApplication
                 }
 
                 if (_subString.Length > 100)
-                    return 0;
+                    return LexemAnalyzerState.SizeError;
 
                 _forward += 1;
             }
             while (!foundDelimiter);
-
-            return LexemAnalyzerState.OK;
+            return LexemAnalyzerState.IdentifyError;
         }
 
         //Method count '\n' before lexem
@@ -117,7 +122,14 @@ namespace LexicalAnalyzerApplication
             return count;
         }
 
+        public void Save_ID()
+        {
+            _identTable.SaveToFile();
+        }
 
-        
+        public void Save_L()
+        {
+            _lexemTable.SaveToFile();
+        }
     }
 }

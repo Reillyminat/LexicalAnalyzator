@@ -77,37 +77,24 @@ namespace LexicalAnalyzerApplication
         }
         private void buttonTranslate_Click(object sender, EventArgs e)
         {
-            int result;
             backStack.Push(richTextBoxCode.Text);
             lexicalAnalyzer.SetCode(richTextBoxCode.Text);
             bool finish=true;
             while (finish)
             {
-                //result = lexicalAnalyzer.Tokenizer();
-
-                result = 3;
-                switch (result)
+                switch (lexicalAnalyzer.Tokenizer())
                 {
-                    case 0:
+                    case LexemAnalyzerState.SizeError:
                         MessageBox.Show("Ошибка лексического анализа. Слишком длинная лексема.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         finish = false;
                         break;
-                    case 1:
-                        finish = false;
-                        break;
-                    case 2:
+                    case LexemAnalyzerState.IdentifyError:
                         MessageBox.Show("Ошибка лексического анализа. Невозможно распознать лексему.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         finish = false;
                         break;
-                    case 3:
-
+                    case LexemAnalyzerState.OK:
                         break;
-                    case 4:
 
-                        break;
-                    case 5:
-
-                        break;
                 }
             }
         }
@@ -150,12 +137,12 @@ namespace LexicalAnalyzerApplication
 
         private void lexemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            lexicalAnalyzer.Save_L();
         }
 
         private void identifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            lexicalAnalyzer.Save_ID();
         }
 
         private void literalsToolStripMenuItem_Click(object sender, EventArgs e)
