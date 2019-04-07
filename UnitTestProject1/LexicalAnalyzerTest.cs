@@ -127,16 +127,103 @@ namespace LexicalAnalyzerTests
             Assert.IsTrue(found);
         }
 
+        [TestMethod]
         public void Tokenizer_Recognize_Identifier()
         {
+            IdentifierTable id = new IdentifierTable();
+            string code;
+            bool expected;
+            bool actual;
+            code = "t123";
+            expected = true;
+            actual = id.Find(code);
+            Assert.AreEqual(expected, actual);
 
+            code = "_text";
+            expected = true;
+            actual = id.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "TEXT";
+            expected = true;
+            actual = id.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "\"text\"";
+            expected = false;
+            actual = id.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "&text";
+            expected = false;
+            actual = id.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "1text";
+            expected = false;
+            actual = id.Find(code);
+            Assert.AreEqual(expected, actual);
         }
+        [TestMethod]
         public void Tokenizer_Recognize_Literal()
         {
-            string code = "\"text\"";
             LiteralTable lit = new LiteralTable();
-            lit.Find(code);
-            Assert.AreEqual();
+            string code;
+            LiteralType expected;
+            LiteralType actual;
+
+            code = "\"text&^%$#@/*\"";
+            expected = LiteralType.Symbol;
+            actual = lit.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "\"123text123\"";
+            expected = LiteralType.Symbol;
+            actual = lit.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "123";
+            expected = LiteralType.Int;
+            actual = lit.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "123.1";
+            expected = LiteralType.Double;
+            actual = lit.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "правда";
+            expected = LiteralType.Logic;
+            actual = lit.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "брехня";
+            expected = LiteralType.Logic;
+            actual = lit.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = ".123";
+            expected = LiteralType.Error;
+            actual = lit.Find(code);
+            Assert.AreEqual(expected, actual);
+
+            code = "1.2.3";
+            expected = LiteralType.Error;
+            actual = lit.Find(code);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Tokenizer()
+        {
+            LexicalAnalyzer tok= new LexicalAnalyzer();
+            LexemAnalyzerState expected;
+            LexemAnalyzerState actual;
+            //Don`t ask me what is this.
+            tok.SetCode(" школа\nпочаток\nціле номер\nсимвол назва\nкінець\nфункція друк_школи(школа дані)\nпочаток\nписати(дані.номер)\nписати(дані.назва)\nкінець\nфункція головна()\nпочаток\nшкола школи[10]\nціле а = 0\nдоки(а менше 9)\nпочаток\nписати(\"Введіть назву школи\")\nчитати(школи[а].назва)\nписати(\"Введіть номер школи\")\nчитати(школи[а].номер)\nа = а + 1\nкінець\nякщо(школи[0].номер не дорівнює 1)\nпочаток\nписати(\"Є школа №1\")\nкінець\nінакше\nпочаток\nписати(\"Немає школи №1\")\nкінець\nкінець\n");
+            expected = LexemAnalyzerState.OK;
+            actual = tok.Tokenizer();
+            Assert.AreEqual(expected, actual);
         }
     }
 }

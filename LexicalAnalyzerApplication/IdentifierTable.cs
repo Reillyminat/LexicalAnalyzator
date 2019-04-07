@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
 namespace LexicalAnalyzerApplication
 {
     public class IdentifierTable
     {
         List<Identifier> _idents;
 
+        public enum IdentifierType { SimpleType, Structure, Array }
         public IdentifierTable()
         {
             _idents = new List<Identifier>();
@@ -27,7 +29,18 @@ namespace LexicalAnalyzerApplication
            Identifier found = _idents.Find(x => x.Name == name);
 
             if (found == null)
+            {
+                if (Regex.IsMatch(name[0].ToString(), @"[a-zA-Z_]"))
+                {
+                    for (int i = 1; i < name.Length - 1; i++)
+                    {
+                        if (!Regex.IsMatch(name[i].ToString(), @"[a-zA-Z0-9_]"))
+                            return false;
+                    }
+                return true;
+                }
                 return false;
+            }
             else
                 return true;
         }

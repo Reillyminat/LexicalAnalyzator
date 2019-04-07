@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalyzerApplication
 {
-   // enum IdentifierType { SimpleType, Structure, Array }
 
     public class Identifier
     {
@@ -33,7 +32,6 @@ namespace LexicalAnalyzerApplication
             _code_position = code_position;
             _line_number = line_number;
         }
-
         public int LineNumber { get => _line_number;}
         public int CodePosition { get => _code_position;  }
         public int TypeNumber { get => _type_number;}
