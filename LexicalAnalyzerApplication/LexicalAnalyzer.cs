@@ -62,7 +62,7 @@ namespace LexicalAnalyzerApplication
                 if (foundDelimiter)
                 {
                    //Count '\n' before lexem
-                    int lexemLinePositon = CountLexemLinePosition(_code, _lexemBegin);
+                    int lexemLinePositon = CountLexemLinePosition(_lexemBegin);
 
                     if (_typeTable.Find(_subString))
                     { 
@@ -102,15 +102,14 @@ namespace LexicalAnalyzerApplication
         }
 
         //Method count '\n' before lexem
-        private int CountLexemLinePosition(string code, int posEnd)
+        private int CountLexemLinePosition(int posEnd)
         {
             int count = 0;
 
-            for (int i = 0; i < code.Length; i++)
+            for (int i = 0; i < _code.Length; i++)
             {
-                if (code[i] == '\n')
+                if (_code[i] == '\n')
                     count++;
-
                 if (i == posEnd)
                     break;
             }

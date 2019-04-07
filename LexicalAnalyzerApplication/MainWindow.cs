@@ -148,6 +148,19 @@ namespace LexicalAnalyzerApplication
                 toolStripButton2.Enabled = false;
         }
 
-      
+        private void lexemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void identifierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void literalsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
