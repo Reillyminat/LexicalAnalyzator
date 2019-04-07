@@ -39,6 +39,10 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.saveTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lexemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.identifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.literalsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +62,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.saveTablesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(404, 24);
@@ -77,14 +82,14 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -146,6 +151,34 @@
             this.toolStripButton2.Text = "toolStripButton2";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
+            // saveTablesToolStripMenuItem
+            // 
+            this.saveTablesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lexemToolStripMenuItem,
+            this.identifierToolStripMenuItem,
+            this.literalsToolStripMenuItem});
+            this.saveTablesToolStripMenuItem.Name = "saveTablesToolStripMenuItem";
+            this.saveTablesToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.saveTablesToolStripMenuItem.Text = "Save tables";
+            // 
+            // lexemToolStripMenuItem
+            // 
+            this.lexemToolStripMenuItem.Name = "lexemToolStripMenuItem";
+            this.lexemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lexemToolStripMenuItem.Text = "Lexem";
+            // 
+            // identifierToolStripMenuItem
+            // 
+            this.identifierToolStripMenuItem.Name = "identifierToolStripMenuItem";
+            this.identifierToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.identifierToolStripMenuItem.Text = "Identifier";
+            // 
+            // literalsToolStripMenuItem
+            // 
+            this.literalsToolStripMenuItem.Name = "literalsToolStripMenuItem";
+            this.literalsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.literalsToolStripMenuItem.Text = "Literals";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,6 +213,10 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripMenuItem saveTablesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lexemToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem identifierToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem literalsToolStripMenuItem;
     }
 }
 

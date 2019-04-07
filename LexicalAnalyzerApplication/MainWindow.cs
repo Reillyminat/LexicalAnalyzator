@@ -83,7 +83,9 @@ namespace LexicalAnalyzerApplication
             bool finish=true;
             while (finish)
             {
-                result = lexicalAnalyzer.Tokenizer();
+                //result = lexicalAnalyzer.Tokenizer();
+
+                result = 3;
                 switch (result)
                 {
                     case 0:
@@ -145,5 +147,7 @@ namespace LexicalAnalyzerApplication
             if (frontStack.Count == 0)
                 toolStripButton2.Enabled = false;
         }
+
+      
     }
 }

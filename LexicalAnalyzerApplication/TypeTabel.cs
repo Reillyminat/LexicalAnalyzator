@@ -13,16 +13,10 @@ namespace LexicalAnalyzerApplication
         public TypeTabel()
         {
             _types = new List<string>();
-            //types
-            _types.Add("int");
-            _types.Add("char");
-            _types.Add("double");
-            _types.Add("bool");
-            StreamWriter sw = new StreamWriter(new FileStream(@"D:\Работы по программированию\TypesTable.txt", FileMode.Create, FileAccess.Write));
-            foreach (string i in _types)
-            {
-                sw.WriteLine(i);
-            }
+            _types.Add("ціле");
+            _types.Add("дійсне");
+            _types.Add("логіка");
+            _types.Add("символ");
         }
 
         public int Count { get => _types.Count; }
@@ -35,13 +29,9 @@ namespace LexicalAnalyzerApplication
                 return false;
             else
             {
+                _types.Add(found_name);
                 return true;
             }
-        }
-
-        public void SaveToFile()
-        {
-
         }
     }
 }

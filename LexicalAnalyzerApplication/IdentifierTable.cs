@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalyzerApplication
 {
-    class IdentifierTable
+    public class IdentifierTable
     {
         List<Identifier> _idents;
 
         public IdentifierTable()
         {
             _idents = new List<Identifier>();
-
         }
 
         public int Count { get => _idents.Count; }
@@ -32,6 +31,7 @@ namespace LexicalAnalyzerApplication
             else
                 return true;
         }
+
         public void SaveToFile()
         {
 
