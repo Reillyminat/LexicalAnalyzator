@@ -33,5 +33,9 @@ namespace LexicalAnalyzerApplication
                 return true;
             }
         }
+        public void AddUserType(string name)
+        {
+            _types.Add(name);
+        }
     }
 }

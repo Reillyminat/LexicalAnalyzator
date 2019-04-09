@@ -97,7 +97,10 @@ namespace LexicalAnalyzerApplication
                     {//Тут будет определятся, какого класса идентификатор, в соответствии со следующим символом
                         lexemLinePositon = CountLexemLinePosition(_lexemBegin);
                         chr = _code[_lexemBegin + _forward + 1].ToString();
-                        _identTable.Add(new Identifier(_subString, IdentTable.IdentifyType(chr), _lexemBegin, lexemLinePositon));
+                        identifierType = IdentTable.IdentifyType(chr);
+                        _identTable.Add(new Identifier(_subString, identifierType, _lexemBegin, lexemLinePositon));
+                        if (identifierType == IdentifierType.Structure)
+                            _typeTable.AddUserType(_subString);
                         return LexemAnalyzerState.OK;
                     }
                     literalType = LiteralTable.Find(_subString);
