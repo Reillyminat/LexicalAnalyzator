@@ -139,6 +139,12 @@ namespace LexicalAnalyzerTests
             actual = id.Find(code);
             Assert.AreEqual(expected, actual);
 
+            id.Add(new Identifier("x1",0,0,0));
+            code = "x1";
+            expected = true;
+            actual = id.Find(code);
+            Assert.AreEqual(expected, actual);
+
             code = "_text";
             expected = true;
             actual = id.Find(code);
@@ -163,6 +169,21 @@ namespace LexicalAnalyzerTests
             expected = false;
             actual = id.Find(code);
             Assert.AreEqual(expected, actual);
+
+            code = "структура школа";
+            IdentifierType exp = IdentifierType.Structure;
+            IdentifierType act = id.IdentifyType(code);
+            Assert.AreEqual(exp, act);
+
+            code = "SomeFunction()";
+            exp = IdentifierType.Function;
+            act = id.IdentifyType(code);
+            Assert.AreEqual(exp, act);
+
+            code = "SomeArray[]";
+            exp = IdentifierType.Array;
+            act = id.IdentifyType(code);
+            Assert.AreEqual(exp, act);
         }
         [TestMethod]
         public void Tokenizer_Recognize_Literal()

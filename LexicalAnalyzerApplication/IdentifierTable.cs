@@ -7,11 +7,11 @@ using System.IO;
 using System.Text.RegularExpressions;
 namespace LexicalAnalyzerApplication
 {
+    public enum IdentifierType { SimpleType, Function, Array, Structure, Error }
     public class IdentifierTable
     {
         List<Identifier> _idents;
 
-        public enum IdentifierType { SimpleType, Structure, Array }
         public IdentifierTable()
         {
             _idents = new List<Identifier>();
@@ -23,7 +23,22 @@ namespace LexicalAnalyzerApplication
         {
             _idents.Add(ident);
         }
-
+        //Метод для определение типа
+        public IdentifierType IdentifyType(string chr)
+        {
+            //Нужна проверка на структуру, мб проверить, являлась ли предыдущая лексема ключевым словом структура
+            if (chr == "[")
+            {
+                return IdentifierType.Array;
+            }
+            if (chr == "(")
+            {
+                return IdentifierType.Function;
+            }
+            if(chr=="")
+                return IdentifierType.Structure;
+            return IdentifierType.SimpleType;
+        }
         public bool Find(string name)
         {
            Identifier found = _idents.Find(x => x.Name == name);
@@ -42,7 +57,7 @@ namespace LexicalAnalyzerApplication
                 return false;
             }
             else
-                return true;
+                return false;
         }
 
         public void SaveToFile()

@@ -137,7 +137,7 @@ namespace LexicalAnalyzerApplication
 
         private void lexemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lexicalAnalyzer.Save_L();
+            lexicalAnalyzer.Save_Lex();
         }
 
         private void identifierToolStripMenuItem_Click(object sender, EventArgs e)
@@ -147,7 +147,7 @@ namespace LexicalAnalyzerApplication
 
         private void literalsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            lexicalAnalyzer.Save_Lit();
         }
     }
 }

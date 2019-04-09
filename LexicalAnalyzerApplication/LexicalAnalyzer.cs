@@ -21,7 +21,7 @@ namespace LexicalAnalyzerApplication
         string _code;
         int _lexemBegin;
         LiteralType literalType;
-
+        IdentifierType identifierType;
         public LexemTable LexemTable { get => _lexemTable; set => _lexemTable = value; }
         public IdentifierTable IdentTable { get => _identTable; set => _identTable = value; }
         public LiteralTable LiteralTable { get => _literalTable; set => _literalTable = value; }
@@ -43,15 +43,12 @@ namespace LexicalAnalyzerApplication
         {
             _code = code;
         }
-
+        //Пока что не работает
         public LexemAnalyzerState Tokenizer()
         {
             int _forward = 0;
             int lexemLinePositon;
             string _subString = "";
-
-            _forward = 0;
-
             bool foundDelimiter = false;
             do
             {
@@ -63,6 +60,7 @@ namespace LexicalAnalyzerApplication
                     {
                         _subString += chr;
                         _forward++;
+                        chr = _code[_lexemBegin + _forward].ToString();
                     } while (chr != "\"");
                     _lexemBegin += _forward+1;
                     literalType = LiteralTable.Find(_subString);
@@ -94,10 +92,12 @@ namespace LexicalAnalyzerApplication
                         _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, lexemLinePositon));
                         return LexemAnalyzerState.OK;
                     }
-
+                    
                     if (IdentTable.Find(_subString))
-                    {
-                        _identTable.Add(new Identifier());
+                    {//Тут будет определятся, какого класса идентификатор, в соответствии со следующим символом
+                        lexemLinePositon = CountLexemLinePosition(_lexemBegin);
+                        chr = _code[_lexemBegin + _forward + 1].ToString();
+                        _identTable.Add(new Identifier(_subString, IdentTable.IdentifyType(chr), _lexemBegin, lexemLinePositon));
                         return LexemAnalyzerState.OK;
                     }
                     literalType = LiteralTable.Find(_subString);
@@ -143,9 +143,14 @@ namespace LexicalAnalyzerApplication
             _identTable.SaveToFile();
         }
 
-        public void Save_L()
+        public void Save_Lex()
         {
             _lexemTable.SaveToFile();
+        }
+
+        public void Save_Lit()
+        {
+            LiteralTable.SaveToFile();
         }
     }
 }
