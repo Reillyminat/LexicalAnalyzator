@@ -34,7 +34,7 @@ namespace LexicalAnalyzerApplication
 
         public void SaveToFile()
         {
-            using (FileStream fs = new FileStream(@"D:\LexemTable.txt", FileMode.Append, FileAccess.Write))
+            using (FileStream fs = new FileStream(@"LexemTable.txt", FileMode.Append, FileAccess.Write))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 sw.WriteLine("{0,10} {1,10} {2,10} {3,10}\n", "Name", "Type", "Position", "Line");

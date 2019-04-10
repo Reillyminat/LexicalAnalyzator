@@ -50,11 +50,19 @@ namespace LexicalAnalyzerApplication
             int lexemLinePositon;
             string _subString = "";
             bool foundDelimiter = false;
+
             do
             {
-                if (_code.Length == _lexemBegin + _forward)
-                    return LexemAnalyzerState.EOF;
-                string chr = _code[_lexemBegin + _forward].ToString();
+                string chr;
+
+                if(_code.Length == _lexemBegin + _forward)
+                 {
+                    chr ="\n";
+                 }
+                else
+                    chr = _code[_lexemBegin + _forward].ToString();
+   
+
                 if (chr == "\"") {
                     do
                     {
@@ -62,12 +70,14 @@ namespace LexicalAnalyzerApplication
                         _forward++;
                         chr = _code[_lexemBegin + _forward].ToString();
                     } while (chr != "\"");
+
                     _lexemBegin += _forward+1;
                     literalType = LiteralTable.Find(_subString);
                     lexemLinePositon = CountLexemLinePosition(_lexemBegin);
                     _literalTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon, literalType));
                     return LexemAnalyzerState.OK;
                 }
+                
                 foundDelimiter = _delimiterTable.Find(chr);
 
                 if (foundDelimiter)
@@ -119,6 +129,7 @@ namespace LexicalAnalyzerApplication
                         return LexemAnalyzerState.OK;
                     }
                     literalType = LiteralTable.Find(_subString);
+
                     if (literalType!= LiteralType.Error)
                     {
                         _lexemBegin += _forward + 1;
@@ -137,6 +148,10 @@ namespace LexicalAnalyzerApplication
                 _forward++;
             }
             while (!foundDelimiter);
+
+              if (_code.Length == _lexemBegin + _forward)
+                    return LexemAnalyzerState.EOF;
+
             return LexemAnalyzerState.IdentifyError;
         }
 
