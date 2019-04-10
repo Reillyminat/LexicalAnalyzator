@@ -51,12 +51,14 @@ namespace LexicalAnalyzerApplication
             string _subString = "";
             bool foundDelimiter = false;
             string chr="";
-            if (_code.Length == _lexemBegin + _forward)
+            if (_code.Length == _lexemBegin)
                 return LexemAnalyzerState.EOF;
             do
             {
-                if ((_lexemBegin + _forward+1) == _code.Length)
+                if ((_lexemBegin + _forward + 1) == _code.Length)
+                {
                     foundDelimiter = true;
+                }
                 else
                 {
                     chr = _code[_lexemBegin + _forward].ToString();
