@@ -35,8 +35,6 @@ namespace LexicalAnalyzerApplication
             {
                 return IdentifierType.Function;
             }
-            if(chr=="")
-                return IdentifierType.Structure;
             return IdentifierType.SimpleType;
         }
         public bool Find(string name)

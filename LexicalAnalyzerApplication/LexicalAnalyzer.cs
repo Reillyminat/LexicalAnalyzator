@@ -76,40 +76,55 @@ namespace LexicalAnalyzerApplication
                     lexemLinePositon = CountLexemLinePosition(_lexemBegin);
 
                     if (_typeTable.Find(_subString))
-                    { 
+                    {
+                        _lexemBegin += _forward + 1;
                         _lexemTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon));
                         return LexemAnalyzerState.OK;
                     }
 
                     if (_keyWordsTable.Find(_subString))
                     {
+                        _lexemBegin += _forward + 1;
                         _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, lexemLinePositon));
                         return LexemAnalyzerState.OK;
                     }
 
                     if(_operationTable.Find(_subString))
                     {
+                        _lexemBegin += _forward + 1;
                         _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, lexemLinePositon));
                         return LexemAnalyzerState.OK;
                     }
                     
                     if (IdentTable.Find(_subString))
-                    {//Тут будет определятся, какого класса идентификатор, в соответствии со следующим символом
+                    {
+                        _lexemBegin += _forward + 1;
                         lexemLinePositon = CountLexemLinePosition(_lexemBegin);
                         chr = _code[_lexemBegin + _forward + 1].ToString();
                         identifierType = IdentTable.IdentifyType(chr);
+                        if(identifierType== IdentifierType.SimpleType)
+                        {
+                            for (int i = 0; i < 7; i++)
+                            {
+                                chr = _code[_lexemBegin + _forward + 1].ToString();
+                                _subString += chr;
+                            }
+                            if (_subString == "початок")
+                            {
+                                identifierType = IdentifierType.Structure;
+                                _typeTable.AddUserType(_subString);
+                            }
+                        }
                         _identTable.Add(new Identifier(_subString, identifierType, _lexemBegin, lexemLinePositon));
-                        if (identifierType == IdentifierType.Structure)
-                            _typeTable.AddUserType(_subString);
                         return LexemAnalyzerState.OK;
                     }
                     literalType = LiteralTable.Find(_subString);
                     if (literalType!= LiteralType.Error)
                     {
+                        _lexemBegin += _forward + 1;
                         _literalTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon, literalType));
                         return LexemAnalyzerState.OK;
                     }
-                    _lexemBegin += _forward+1;
                 }
                 else
                 {
