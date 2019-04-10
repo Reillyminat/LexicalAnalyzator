@@ -50,15 +50,16 @@ namespace LexicalAnalyzerApplication
             int lexemLinePositon;
             string _subString = "";
             bool foundDelimiter = false;
+            string chr="";
             if (_code.Length == _lexemBegin + _forward)
                 return LexemAnalyzerState.EOF;
             do
             {
-                if ((_lexemBegin + _forward) == _code.Length)
+                if ((_lexemBegin + _forward+1) == _code.Length)
                     foundDelimiter = true;
                 else
                 {
-                    string chr = _code[_lexemBegin + _forward].ToString();
+                    chr = _code[_lexemBegin + _forward].ToString();
                     if (chr == "\"")
                     {
                         do
