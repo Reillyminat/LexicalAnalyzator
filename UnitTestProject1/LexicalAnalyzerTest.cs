@@ -173,22 +173,20 @@ namespace LexicalAnalyzerTests
             code = "країна";
             expected = true;
             actual = id.Find(code);
-            Assert.AreEqual(expected, actual);*/
-            
-                        code = "структура школа";
-                        IdentifierType exp = IdentifierType.Structure;
-                        IdentifierType act = id.IdentifyType(code);
-                        Assert.AreEqual(exp, act);
+            Assert.AreEqual(expected, actual);
 
-                        code = "SomeFunction()";
-                        exp = IdentifierType.Function;
-                        act = id.IdentifyType(code);
-                        Assert.AreEqual(exp, act);
+            IdentifierType exp;
+            IdentifierType act;
 
-                        code = "SomeArray[]";
-                        exp = IdentifierType.Array;
-                        act = id.IdentifyType(code);
-                        Assert.AreEqual(exp, act);*/
+            code = "SomeFunction()";
+            exp = IdentifierType.Function;
+            act = id.IdentifyType(code);
+            Assert.AreEqual(exp, act);
+
+            code = "SomeArray[]";
+            exp = IdentifierType.Array;
+            act = id.IdentifyType(code);
+            Assert.AreEqual(exp, act);
         }
         [TestMethod]
         public void Tokenizer_Recognize_Literal()
@@ -246,10 +244,16 @@ namespace LexicalAnalyzerTests
             LexemAnalyzerState expected;
             LexemAnalyzerState actual;
             //Don`t ask me what is this.
-            tok.SetCode(" школа\nпочаток\nціле номер\nсимвол назва\nкінець\nфункція друк_школи(школа дані)\nпочаток\nписати(дані.номер)\nписати(дані.назва)\nкінець\nфункція головна()\nпочаток\nшкола школи[10]\nціле а = 0\nдоки(а менше 9)\nпочаток\nписати(\"Введіть назву школи\")\nчитати(школи[а].назва)\nписати(\"Введіть номер школи\")\nчитати(школи[а].номер)\nа = а + 1\nкінець\nякщо(школи[0].номер не дорівнює 1)\nпочаток\nписати(\"Є школа №1\")\nкінець\nінакше\nпочаток\nписати(\"Немає школи №1\")\nкінець\nкінець\n");
-            expected = LexemAnalyzerState.OK;
+            //tok.SetCode("школа\nпочаток\nціле номер\nсимвол назва\nкінець\nфункція друк_школи(школа дані)\nпочаток\nписати(дані.номер)\nписати(дані.назва)\nкінець\nфункція головна()\nпочаток\nшкола школи[10]\nціле а = 0\nдоки(а менше 9)\nпочаток\nписати(\"Введіть назву школи\")\nчитати(школи[а].назва)\nписати(\"Введіть номер школи\")\nчитати(школи[а].номер)\nа = а + 1\nкінець\nякщо(школи[0].номер не дорівнює 1)\nпочаток\nписати(\"Є школа №1\")\nкінець\nінакше\nпочаток\nписати(\"Немає школи №1\")\nкінець\nкінець\n");
+            tok.SetCode("\"деякий текст для зчитування\" функція ");
+            expected = LexemAnalyzerState.EOF;
+            actual = tok.Tokenizer();
             actual = tok.Tokenizer();
             Assert.AreEqual(expected, actual);
+
+            /*expected = LexemAnalyzerState.EOF;
+            actual = tok.Tokenizer();
+            Assert.AreEqual(expected, actual);*/
         }
     }
 }
