@@ -58,6 +58,9 @@ namespace LexicalAnalyzerApplication
                 if ((_lexemBegin + _forward + 1) == _code.Length)
                 {
                     foundDelimiter = true;
+                    chr = _code[_lexemBegin + _forward].ToString();
+
+                    _subString += chr;
                 }
                 else
                 {
@@ -78,6 +81,7 @@ namespace LexicalAnalyzerApplication
                     }
                     foundDelimiter = _delimiterTable.Find(chr);
                 }
+ 
                 if (foundDelimiter)
                 {
                    //Count '\n' before lexem
@@ -103,13 +107,14 @@ namespace LexicalAnalyzerApplication
                         _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, lexemLinePositon));
                         return LexemAnalyzerState.OK;
                     }
-                    /*
+                    
                     if (IdentTable.Find(_subString))
                     {
                         _lexemBegin += _forward + 1;
                         lexemLinePositon = CountLexemLinePosition(_lexemBegin);
                         chr = _code[_lexemBegin + _forward + 1].ToString();
                         identifierType = IdentTable.IdentifyType(chr);
+
                         if(identifierType== IdentifierType.SimpleType)
                         {
                             for (int i = 0; i < 7; i++)
@@ -117,16 +122,19 @@ namespace LexicalAnalyzerApplication
                                 chr = _code[_lexemBegin + _forward + 1].ToString();
                                 _subString += chr;
                             }
+
                             if (_subString == "початок")
                             {
                                 identifierType = IdentifierType.Structure;
                                 _typeTable.AddUserType(_subString);
                             }
                         }
+
                         _identTable.Add(new Identifier(_subString, identifierType, _lexemBegin, lexemLinePositon));
                         return LexemAnalyzerState.OK;
                     }
-                    literalType = LiteralTable.Find(_subString);
+
+                    /*literalType = LiteralTable.Find(_subString);
                     if (literalType!= LiteralType.Error)
                     {
                         _lexemBegin += _forward + 1;
@@ -145,6 +153,7 @@ namespace LexicalAnalyzerApplication
                 _forward++;
             }
             while (!foundDelimiter);
+
             return LexemAnalyzerState.IdentifyError;
         }
 

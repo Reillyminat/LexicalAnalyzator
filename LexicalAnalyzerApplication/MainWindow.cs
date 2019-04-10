@@ -78,6 +78,9 @@ namespace LexicalAnalyzerApplication
         private void buttonTranslate_Click(object sender, EventArgs e)
         {
             backStack.Push(richTextBoxCode.Text);
+
+            lexicalAnalyzer = new LexicalAnalyzer();
+
             lexicalAnalyzer.SetCode(richTextBoxCode.Text);
             bool finish=true;
             while (finish)
@@ -95,7 +98,7 @@ namespace LexicalAnalyzerApplication
                     case LexemAnalyzerState.OK:
                         break;
                     case LexemAnalyzerState.EOF:
-                        finish = true;
+                        finish = false;
                         break;
                 }
             }

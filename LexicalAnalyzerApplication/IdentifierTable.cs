@@ -41,7 +41,7 @@ namespace LexicalAnalyzerApplication
         {
            Identifier found = _idents.Find(x => x.Name == name);
 
-            if (found == null)
+            if (found != null)
             {
                 if (Regex.IsMatch(name[0].ToString(), @"[a-zA-ZАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя_]"))
                 {
@@ -55,12 +55,12 @@ namespace LexicalAnalyzerApplication
                 return false;
             }
             else
-                return true;
+                return false;
         }
 
         public void SaveToFile()
         {
-            using (FileStream fs = new FileStream(@"D:\IdentifierTable.txt", FileMode.Append, FileAccess.Write))
+            using (FileStream fs = new FileStream(@"IdentifierTable.txt", FileMode.Append, FileAccess.Write))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 sw.WriteLine("{0,10} {1,10} {2,10} {3,10}\n", "Name", "Type", "Position", "Line");
