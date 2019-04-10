@@ -43,11 +43,11 @@ namespace LexicalAnalyzerApplication
 
             if (found == null)
             {
-                if (Regex.IsMatch(name[0].ToString(), @"[a-zA-Z_]"))
+                if (Regex.IsMatch(name[0].ToString(), @"[a-zA-ZАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя_]"))
                 {
                     for (int i = 1; i < name.Length - 1; i++)
                     {
-                        if (!Regex.IsMatch(name[i].ToString(), @"[a-zA-Z0-9_]"))
+                        if (!Regex.IsMatch(name[i].ToString(), @"[a-zA-ZАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя0-9_]"))
                             return false;
                     }
                 return true;
@@ -55,7 +55,7 @@ namespace LexicalAnalyzerApplication
                 return false;
             }
             else
-                return false;
+                return true;
         }
 
         public void SaveToFile()
