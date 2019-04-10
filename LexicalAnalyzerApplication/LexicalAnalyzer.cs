@@ -43,43 +43,41 @@ namespace LexicalAnalyzerApplication
         {
             _code = code;
         }
-        //Пока что не работает
+        
         public LexemAnalyzerState Tokenizer()
         {
             int _forward = 0;
             int lexemLinePositon;
             string _subString = "";
             bool foundDelimiter = false;
-
+            string chr="";
+            if (_code.Length == _lexemBegin)
+                return LexemAnalyzerState.EOF;
             do
             {
-                string chr;
-
-                if(_code.Length == _lexemBegin + _forward)
-                 {
-                    chr ="\n";
-                 }
-                else
-                    chr = _code[_lexemBegin + _forward].ToString();
-   
-
-                if (chr == "\"") {
-                    do
-                    {
-                        _subString += chr;
-                        _forward++;
-                        chr = _code[_lexemBegin + _forward].ToString();
-                    } while (chr != "\"");
-
-                    _lexemBegin += _forward+1;
-                    literalType = LiteralTable.Find(_subString);
-                    lexemLinePositon = CountLexemLinePosition(_lexemBegin);
-                    _literalTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon, literalType));
-                    return LexemAnalyzerState.OK;
+                if ((_lexemBegin + _forward + 1) == _code.Length)
+                {
+                    foundDelimiter = true;
                 }
-                
-                foundDelimiter = _delimiterTable.Find(chr);
-
+                else
+                {
+                    chr = _code[_lexemBegin + _forward].ToString();
+                    if (chr == "\"")
+                    {
+                        do
+                        {
+                            _subString += chr;
+                            _forward++;
+                            chr = _code[_lexemBegin + _forward].ToString();
+                        } while (chr != "\"");
+                        _lexemBegin += _forward + 2;
+                        literalType = LiteralTable.Find(_subString);
+                        lexemLinePositon = CountLexemLinePosition(_lexemBegin);
+                        _literalTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon, literalType));
+                        return LexemAnalyzerState.OK;
+                    }
+                    foundDelimiter = _delimiterTable.Find(chr);
+                }
                 if (foundDelimiter)
                 {
                    //Count '\n' before lexem
@@ -91,7 +89,7 @@ namespace LexicalAnalyzerApplication
                         _lexemTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon));
                         return LexemAnalyzerState.OK;
                     }
-
+                    
                     if (_keyWordsTable.Find(_subString))
                     {
                         _lexemBegin += _forward + 1;
@@ -105,7 +103,7 @@ namespace LexicalAnalyzerApplication
                         _lexemTable.Add(new Lexem(_subString, LexemType.KeyWord, _lexemBegin, lexemLinePositon));
                         return LexemAnalyzerState.OK;
                     }
-                    
+                    /*
                     if (IdentTable.Find(_subString))
                     {
                         _lexemBegin += _forward + 1;
@@ -129,13 +127,12 @@ namespace LexicalAnalyzerApplication
                         return LexemAnalyzerState.OK;
                     }
                     literalType = LiteralTable.Find(_subString);
-
                     if (literalType!= LiteralType.Error)
                     {
                         _lexemBegin += _forward + 1;
                         _literalTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon, literalType));
                         return LexemAnalyzerState.OK;
-                    }
+                    }*/
                 }
                 else
                 {
@@ -148,10 +145,6 @@ namespace LexicalAnalyzerApplication
                 _forward++;
             }
             while (!foundDelimiter);
-
-              if (_code.Length == _lexemBegin + _forward)
-                    return LexemAnalyzerState.EOF;
-
             return LexemAnalyzerState.IdentifyError;
         }
 

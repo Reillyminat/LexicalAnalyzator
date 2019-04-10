@@ -94,11 +94,9 @@ namespace LexicalAnalyzerApplication
                         break;
                     case LexemAnalyzerState.OK:
                         break;
-                    
                     case LexemAnalyzerState.EOF:
-                        finish = false;
+                        finish = true;
                         break;
-
                 }
             }
         }
