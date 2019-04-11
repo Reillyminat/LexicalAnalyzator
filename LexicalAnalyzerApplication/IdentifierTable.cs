@@ -55,7 +55,7 @@ namespace LexicalAnalyzerApplication
                 return false;
             }
             else
-                return false;
+                return true;
         }
 
         public void SaveToFile()

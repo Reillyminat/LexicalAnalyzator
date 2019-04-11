@@ -74,7 +74,7 @@ namespace LexicalAnalyzerApplication
             {
                 sw.WriteLine("{0,10} {1,10} {2,10} {3,10}\n", "Name", "Type", "Position", "Line");
                 foreach (Lexem lit in _literals)
-                    sw.WriteLine("{0,10} {1,10} {2,10} {3,10}", lit.Name, lit.LexemType, lit.CodePosition, lit.LineNumber);
+                    sw.WriteLine("{0,10} {1,10} {2,10} {3,10}", lit.Name, lit.LiteralType, lit.CodePosition, lit.LineNumber);
             }
         }
     }

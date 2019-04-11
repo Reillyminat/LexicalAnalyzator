@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace LexicalAnalyzerApplication
 {
     public enum LexemType { Identifier, KeyWord, Delimeter, Operation, SimpleType }
+
     public enum LiteralType { Int, Double, Logic, Symbol, Error }
+
     public class Lexem
     {
         LexemType _lexemType;
@@ -30,7 +32,7 @@ namespace LexicalAnalyzerApplication
 
         public Lexem(string name, LexemType lexemType, int codePosition, int lineNumber)
         {
-            _lexemType = LexemType;
+            _lexemType = lexemType;
             _codePosition = codePosition;
             _lineNumber = lineNumber;
             _name = name;
@@ -38,7 +40,7 @@ namespace LexicalAnalyzerApplication
 
         public Lexem(string name, LexemType lexemType, int codePosition, int lineNumber, LiteralType literalType)
         {
-            _lexemType = LexemType;
+            _lexemType = lexemType;
             _codePosition = codePosition;
             _lineNumber = lineNumber;
             _name = name;
