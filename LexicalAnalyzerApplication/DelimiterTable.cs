@@ -19,6 +19,7 @@ namespace LexicalAnalyzerApplication
             _delimeters.Add(" ");
             _delimeters.Add("\n");
             _delimeters.Add("\r");
+            _delimeters.Add("\t");
             _delimeters.Add("(");
             _delimeters.Add(")");
             _delimeters.Add(";");
@@ -29,11 +30,17 @@ namespace LexicalAnalyzerApplication
 
         public int Count { get => _delimeters.Count; }
 
+        public bool FindSkip(string str)
+        {
+            if (str == " " || str == "\n" || str == "\t")
+                return true;
+            return false;
+        }
         public bool Find(string str)
         {
-            string foud_name = _delimeters.Find(x => x == str);
+            string found_name = _delimeters.Find(x => x == str);
 
-            if (foud_name == null)
+            if (found_name == null)
                 return false;
             else
                 return true;

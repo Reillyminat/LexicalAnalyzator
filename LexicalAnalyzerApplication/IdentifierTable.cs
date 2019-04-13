@@ -23,10 +23,8 @@ namespace LexicalAnalyzerApplication
         {
             _idents.Add(ident);
         }
-        //Метод для определение типа
         public IdentifierType IdentifyType(string chr)
         {
-            //Нужна проверка на структуру, мб проверить, являлась ли предыдущая лексема ключевым словом структура
             if (chr == "[")
             {
                 return IdentifierType.Array;
@@ -41,7 +39,7 @@ namespace LexicalAnalyzerApplication
         {
            Identifier found = _idents.Find(x => x.Name == name);
 
-            if (found != null)
+            if (found == null)
             {
                 if (Regex.IsMatch(name[0].ToString(), @"[a-zA-ZАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя_]"))
                 {

@@ -58,17 +58,26 @@ namespace LexicalAnalyzerApplication
 
             do
             {
-                if ((_lexemBegin + _forward  ) == _code.Length-1)
+                if ((_lexemBegin + _forward) == _code.Length-1)
                 {
                     foundDelimiter = true;
-               
                     chr = _code[_lexemBegin + _forward].ToString();
-                    _subString += chr;
 
+                    if (chr != " "&& _subString != " ")
+                        _subString += chr;
+                    else return LexemAnalyzerState.EOF;
                 }
                 else
                 {
                     chr = _code[_lexemBegin + _forward].ToString();
+                    while ((_subString == "") &&(_delimiterTable.FindSkip(chr)))
+                    {
+                        if (_code.Length - 1 == _lexemBegin)
+                            return LexemAnalyzerState.EOF;
+                        _lexemBegin++;
+                        chr = _code[_lexemBegin + _forward].ToString();
+                    }
+                    foundDelimiter = _delimiterTable.Find(chr);
                     if (chr == "\"")
                     {
                         do
@@ -83,8 +92,6 @@ namespace LexicalAnalyzerApplication
                         _lexemBegin += _forward + 1;
                         return LexemAnalyzerState.OK;
                     }
-
-                    foundDelimiter = _delimiterTable.Find(chr);
                 }
  
                 if (foundDelimiter)
@@ -121,13 +128,13 @@ namespace LexicalAnalyzerApplication
 
                         if(identifierType== IdentifierType.SimpleType)
                         {
-                            if((_lexemBegin+_forward)==_code.Length-1)
+                            if((_lexemBegin+_forward+7)>_code.Length-1)
                                 {}
                             else {
                                 string word="";
                             for (int i = 0; i < 7; i++)
                             {
-                                chr = _code[_lexemBegin + _forward + 1].ToString();
+                                chr = _code[_lexemBegin + _forward + 1+i].ToString();
                                 word += chr;
                             }
 
@@ -140,6 +147,7 @@ namespace LexicalAnalyzerApplication
                         }
 
                         _identTable.Add(new Identifier(_subString, identifierType, _lexemBegin, lexemLinePositon));
+                        _lexemTable.Add(new Lexem(_subString, LexemType.Identifier, _lexemBegin, lexemLinePositon));
                         _lexemBegin += _forward + 1;
                         return LexemAnalyzerState.OK;
                     }
@@ -149,6 +157,7 @@ namespace LexicalAnalyzerApplication
                     if (literalType!= LiteralType.Error)
                     {
                         _literalTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon, literalType));
+                        _lexemTable.Add(new Lexem(_subString, LexemType.SimpleType, _lexemBegin, lexemLinePositon));
                         _lexemBegin += _forward + 1;
                         return LexemAnalyzerState.OK;
                     }

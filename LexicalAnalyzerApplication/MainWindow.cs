@@ -48,7 +48,7 @@ namespace LexicalAnalyzerApplication
         {
             //var fileContent = string.Empty;
             var filePath = string.Empty;
-            filePath = @"C:\Users\illym\test.txt";
+            filePath = @"D:\test.txt";
 
             fileContent = System.IO.File.ReadAllText(filePath, Encoding.Default);
 

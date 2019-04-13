@@ -22,6 +22,10 @@ namespace LexicalAnalyzerApplication
             _keyWordsTable.Add("кінець");
             _keyWordsTable.Add("повернути");
             _keyWordsTable.Add("структура");
+            _keyWordsTable.Add("ціле");
+            _keyWordsTable.Add("дійсне");
+            _keyWordsTable.Add("логіка");
+            _keyWordsTable.Add("символ");
         }
         public int Count { get => _keyWordsTable.Count; }
 
