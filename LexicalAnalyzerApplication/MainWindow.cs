@@ -83,16 +83,18 @@ namespace LexicalAnalyzerApplication
 
             lexicalAnalyzer.SetCode(richTextBoxCode.Text);
             bool finish=true;
+            int line=0;
+            int position=0;
             while (finish)
             {
-                switch (lexicalAnalyzer.Tokenizer())
+                switch (lexicalAnalyzer.Tokenizer(ref line, ref position))
                 {
                     case LexemAnalyzerState.SizeError:
                         MessageBox.Show("Ошибка лексического анализа. Слишком длинная лексема.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         finish = false;
                         break;
                     case LexemAnalyzerState.IdentifyError:
-                        MessageBox.Show("Ошибка лексического анализа. Невозможно распознать лексему.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ошибка лексического анализа. Невозможно распознать лексему в строке "+ ++line, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         finish = false;
                         break;
                     case LexemAnalyzerState.OK:

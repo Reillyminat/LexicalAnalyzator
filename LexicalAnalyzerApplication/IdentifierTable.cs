@@ -35,25 +35,27 @@ namespace LexicalAnalyzerApplication
             }
             return IdentifierKind.SimpleType;
         }
+
+        public bool Existance(string name)
+        {
+            Identifier found = _idents.Find(x => x.Name == name);
+            
+            if (found == null)
+                return false;
+            else return true;
+        }
         public bool Find(string name)
         {
-           Identifier found = _idents.Find(x => x.Name == name);
-
-            if (found == null)
+            if (Regex.IsMatch(name[0].ToString(), @"[a-zA-ZАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя_]"))
             {
-                if (Regex.IsMatch(name[0].ToString(), @"[a-zA-ZАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя_]"))
+                for (int i = 1; i < name.Length - 1; i++)
                 {
-                    for (int i = 1; i < name.Length - 1; i++)
-                    {
-                        if (!Regex.IsMatch(name[i].ToString(), @"[a-zA-ZАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя0-9_]"))
-                            return false;
-                    }
-                return true;
+                    if (!Regex.IsMatch(name[i].ToString(), @"[a-zA-ZАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя0-9_]"))
+                        return false;
                 }
-                return false;
-            }
-            else
                 return true;
+            }
+            return false;
         }
 
         public void SaveToFile()
@@ -61,9 +63,10 @@ namespace LexicalAnalyzerApplication
             using (FileStream fs = new FileStream(@"IdentifierTable.txt", FileMode.Append, FileAccess.Write))
             using (StreamWriter sw = new StreamWriter(fs))
             {
-                sw.WriteLine("{0,10} {1,10} {2,10} {3,10}\n", "Name", "Type", "Position", "Line");
+                sw.WriteLine("{0,-10} {1,-10} {2,-10} {3,-10} {4,-10} {5,-10} {6,-10} {7,-10}\n", "Name", "Kind", "Position", "Line", "Descriptor", "Number_of_par", "Parameters", "Param_types");
                 foreach (Identifier id in _idents)
-                    sw.WriteLine("{0,10} {1,10} {2,10} {3,10}",id.Name,id.KindNumber,id.CodePosition,id.LineNumber);
+                    sw.WriteLine("{0,-10} {1,-10} {2,-10} {3,-10} {4,-10} {5,-10}",id.Name,id.KindNumber,id.CodePosition,id.LineNumber, 0, id.NumberOfParam);
+                sw.WriteLine();
             }
         }
     }

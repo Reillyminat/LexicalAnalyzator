@@ -28,6 +28,8 @@ namespace LexicalAnalyzerApplication
             _operations.Add("<=");
             _operations.Add(">=");
             _operations.Add(".");
+            _operations.Add("(");
+            _operations.Add(")");
         }
 
         public int Count { get => _operations.Count; }
