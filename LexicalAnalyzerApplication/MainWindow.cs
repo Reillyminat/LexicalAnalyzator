@@ -149,10 +149,5 @@ namespace LexicalAnalyzerApplication
         {
             lexicalAnalyzer.Save_ID();
         }
-
-        private void literalsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            lexicalAnalyzer.Save_Lit();
-        }
     }
 }

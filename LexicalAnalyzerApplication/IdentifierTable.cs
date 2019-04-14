@@ -7,7 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 namespace LexicalAnalyzerApplication
 {
-    public enum IdentifierType { SimpleType, Function, Array, Structure, Error }
+    public enum IdentifierKind { SimpleType, Function, Array, Structure, Error }
     public class IdentifierTable
     {
         List<Identifier> _idents;
@@ -23,17 +23,17 @@ namespace LexicalAnalyzerApplication
         {
             _idents.Add(ident);
         }
-        public IdentifierType IdentifyType(string chr)
+        public IdentifierKind IdentifyType(string chr)
         {
             if (chr == "[")
             {
-                return IdentifierType.Array;
+                return IdentifierKind.Array;
             }
             if (chr == "(")
             {
-                return IdentifierType.Function;
+                return IdentifierKind.Function;
             }
-            return IdentifierType.SimpleType;
+            return IdentifierKind.SimpleType;
         }
         public bool Find(string name)
         {
@@ -63,7 +63,7 @@ namespace LexicalAnalyzerApplication
             {
                 sw.WriteLine("{0,10} {1,10} {2,10} {3,10}\n", "Name", "Type", "Position", "Line");
                 foreach (Identifier id in _idents)
-                    sw.WriteLine("{0,10} {1,10} {2,10} {3,10}",id.Name,id.TypeNumber,id.CodePosition,id.LineNumber);
+                    sw.WriteLine("{0,10} {1,10} {2,10} {3,10}",id.Name,id.KindNumber,id.CodePosition,id.LineNumber);
             }
         }
     }

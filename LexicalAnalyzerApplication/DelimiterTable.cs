@@ -19,9 +19,9 @@ namespace LexicalAnalyzerApplication
             _delimeters.Add(" ");
             _delimeters.Add("\n");
             _delimeters.Add("\r");
-            _delimeters.Add("\t");
+            _delimeters.Add("\t");/*
             _delimeters.Add("(");
-            _delimeters.Add(")");
+            _delimeters.Add(")");*/
             _delimeters.Add(";");
             _delimeters.Add(",");
             _delimeters.Add("[");
@@ -32,7 +32,7 @@ namespace LexicalAnalyzerApplication
 
         public bool FindSkip(string str)
         {
-            if (str == " " || str == "\n" || str == "\t")
+            if (str == " " || str == "\n" || str == "\t" || str=="\r")
                 return true;
             return false;
         }
