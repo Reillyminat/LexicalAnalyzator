@@ -175,16 +175,16 @@ namespace LexicalAnalyzerTests
             actual = id.Find(code);
             Assert.AreEqual(expected, actual);
 
-            IdentifierKind exp;
-            IdentifierKind act;
+            IdentifierType exp;
+            IdentifierType act;
 
             code = "SomeFunction()  ";
-            exp = IdentifierKind.Function;
+            exp = IdentifierType.Function;
             act = id.IdentifyType(code);
             Assert.AreEqual(exp, act);
 
             code = "SomeArray[]";
-            exp = IdentifierKind.Array;
+            exp = IdentifierType.Array;
             act = id.IdentifyType(code);
             Assert.AreEqual(exp, act);
         }
