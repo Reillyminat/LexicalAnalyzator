@@ -7,7 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 namespace LexicalAnalyzerApplication
 {
-    public enum IdentifierType { SimpleType, Function, Array, Structure, Error }
+    public enum IdentifierKind { SimpleType, Function, Array, Structure, Error }
     public class IdentifierTable
     {
         List<Identifier> _idents;
@@ -23,19 +23,17 @@ namespace LexicalAnalyzerApplication
         {
             _idents.Add(ident);
         }
-        //Метод для определение типа
-        public IdentifierType IdentifyType(string chr)
+        public IdentifierKind IdentifyType(string chr)
         {
-            //Нужна проверка на структуру, мб проверить, являлась ли предыдущая лексема ключевым словом структура
             if (chr == "[")
             {
-                return IdentifierType.Array;
+                return IdentifierKind.Array;
             }
             if (chr == "(")
             {
-                return IdentifierType.Function;
+                return IdentifierKind.Function;
             }
-            return IdentifierType.SimpleType;
+            return IdentifierKind.SimpleType;
         }
         public bool Find(string name)
         {
@@ -60,12 +58,12 @@ namespace LexicalAnalyzerApplication
 
         public void SaveToFile()
         {
-            using (FileStream fs = new FileStream(@"D:\IdentifierTable.txt", FileMode.Append, FileAccess.Write))
+            using (FileStream fs = new FileStream(@"IdentifierTable.txt", FileMode.Append, FileAccess.Write))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 sw.WriteLine("{0,10} {1,10} {2,10} {3,10}\n", "Name", "Type", "Position", "Line");
                 foreach (Identifier id in _idents)
-                    sw.WriteLine("{0,10} {1,10} {2,10} {3,10}",id.Name,id.TypeNumber,id.CodePosition,id.LineNumber);
+                    sw.WriteLine("{0,10} {1,10} {2,10} {3,10}",id.Name,id.KindNumber,id.CodePosition,id.LineNumber);
             }
         }
     }
