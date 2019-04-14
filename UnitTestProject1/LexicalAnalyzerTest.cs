@@ -19,19 +19,19 @@ namespace LexicalAnalyzerTests
 
             bool found = false;
 
-            found = lex.LexemTable.Find(new Lexem("ціле", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("ціле", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("дійсне", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("дійсне", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("логіка", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("логіка", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("символ", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("символ", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
 
@@ -50,27 +50,27 @@ namespace LexicalAnalyzerTests
 
             bool found = false;
 
-            found = lex.LexemTable.Find(new Lexem("якщо", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("якщо", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("доки", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("доки", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("інакше", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("інакше", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("початок", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("початок", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("кінець", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("кінець", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("повернути", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("повернути", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
         }
 
@@ -87,43 +87,43 @@ namespace LexicalAnalyzerTests
 
             bool found = false;
 
-            found = lex.LexemTable.Find(new Lexem("*", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("*", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("/", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("/", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("+", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("+", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("-", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("-", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem(">", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem(">", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("<", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("<", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("==", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("==", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("!=", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("!=", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem(">=", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem(">=", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
 
             found = false;
-            found = lex.LexemTable.Find(new Lexem("<=", LexemType.SimpleType, 0, 0));
+            found = lex.LexemTable.Find(new Lexem("<=", LexemKind.SimpleType, 0, 0));
             Assert.IsTrue(found);
         }
 
@@ -178,7 +178,7 @@ namespace LexicalAnalyzerTests
             IdentifierType exp;
             IdentifierType act;
 
-            code = "SomeFunction()";
+            code = "SomeFunction()  ";
             exp = IdentifierType.Function;
             act = id.IdentifyType(code);
             Assert.AreEqual(exp, act);
@@ -193,46 +193,46 @@ namespace LexicalAnalyzerTests
         {
             LiteralTable lit = new LiteralTable();
             string code;
-            LiteralType expected;
-            LiteralType actual;
+            LexemType expected;
+            LexemType actual;
 
             code = "\"text&^%$#@/*\"";
-            expected = LiteralType.Symbol;
+            expected = LexemType.Symbol;
             actual = lit.Find(code);
             Assert.AreEqual(expected, actual);
 
             code = "\"123text123\"";
-            expected = LiteralType.Symbol;
+            expected = LexemType.Symbol;
             actual = lit.Find(code);
             Assert.AreEqual(expected, actual);
 
             code = "123";
-            expected = LiteralType.Int;
+            expected = LexemType.Int;
             actual = lit.Find(code);
             Assert.AreEqual(expected, actual);
 
             code = "123.1";
-            expected = LiteralType.Double;
+            expected = LexemType.Double;
             actual = lit.Find(code);
             Assert.AreEqual(expected, actual);
 
             code = "правда";
-            expected = LiteralType.Logic;
+            expected = LexemType.Logic;
             actual = lit.Find(code);
             Assert.AreEqual(expected, actual);
 
             code = "брехня";
-            expected = LiteralType.Logic;
+            expected = LexemType.Logic;
             actual = lit.Find(code);
             Assert.AreEqual(expected, actual);
 
             code = ".123";
-            expected = LiteralType.Error;
+            expected = LexemType.Error;
             actual = lit.Find(code);
             Assert.AreEqual(expected, actual);
 
             code = "1.2.3";
-            expected = LiteralType.Error;
+            expected = LexemType.Error;
             actual = lit.Find(code);
             Assert.AreEqual(expected, actual);
         }

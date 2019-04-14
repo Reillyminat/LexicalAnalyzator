@@ -37,7 +37,6 @@
             this.saveTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lexemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.identifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.literalsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBoxLineNumbers = new System.Windows.Forms.RichTextBox();
             this.richTextBoxCode = new System.Windows.Forms.RichTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -97,8 +96,7 @@
             // 
             this.saveTablesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lexemToolStripMenuItem,
-            this.identifierToolStripMenuItem,
-            this.literalsToolStripMenuItem});
+            this.identifierToolStripMenuItem});
             this.saveTablesToolStripMenuItem.Name = "saveTablesToolStripMenuItem";
             this.saveTablesToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.saveTablesToolStripMenuItem.Text = "Save tables";
@@ -116,13 +114,6 @@
             this.identifierToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.identifierToolStripMenuItem.Text = "Identifier";
             this.identifierToolStripMenuItem.Click += new System.EventHandler(this.identifierToolStripMenuItem_Click);
-            // 
-            // literalsToolStripMenuItem
-            // 
-            this.literalsToolStripMenuItem.Name = "literalsToolStripMenuItem";
-            this.literalsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.literalsToolStripMenuItem.Text = "Literals";
-            this.literalsToolStripMenuItem.Click += new System.EventHandler(this.literalsToolStripMenuItem_Click);
             // 
             // richTextBoxLineNumbers
             // 
@@ -219,7 +210,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveTablesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lexemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem identifierToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem literalsToolStripMenuItem;
     }
 }
 

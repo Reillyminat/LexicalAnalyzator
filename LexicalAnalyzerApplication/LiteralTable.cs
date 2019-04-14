@@ -16,16 +16,16 @@ namespace LexicalAnalyzerApplication
         {
             _literals = new List <Lexem>();
         }
-        public LiteralType Find(string lexem)
+        public LexemType Find(string lexem)
         {
             int state=0;
             if (lexem == "правда")
             {
-                return LiteralType.Logic;
+                return LexemType.Logic;
             }
             if (lexem == "брехня")
             {
-                return LiteralType.Logic;
+                return LexemType.Logic;
             }
             if (Regex.IsMatch(lexem[0].ToString(), "[\"]"))
                 if (Regex.IsMatch(lexem[lexem.Length - 1].ToString(), "[\"]"))
@@ -33,12 +33,12 @@ namespace LexicalAnalyzerApplication
                     for (int i = 1; i < lexem.Length - 1; i++)
                     {
                         if (Regex.IsMatch(lexem[i].ToString(), "[\"]"))
-                            return LiteralType.Error;
+                            return LexemType.Error;
                     }
-                    return LiteralType.Symbol;
+                    return LexemType.Symbol;
                 }
             if (Regex.IsMatch(lexem[0].ToString(), "[^0-9]"))
-                return LiteralType.Error;
+                return LexemType.Error;
             bool dotContaining=false;
             foreach (char t in lexem)
             {
@@ -58,24 +58,14 @@ namespace LexicalAnalyzerApplication
                 }
             }
             if (state == 0)
-                return LiteralType.Int;
+                return LexemType.Int;
             if (state == 1)
-                return LiteralType.Double;
-            return LiteralType.Error;
+                return LexemType.Double;
+            return LexemType.Error;
         }
         public void Add(Lexem lit)
         {
             _literals.Add(lit);
-        }
-        public void SaveToFile()
-        {
-            using (FileStream fs = new FileStream(@"LiteralTable.txt", FileMode.Append, FileAccess.Write))
-            using (StreamWriter sw = new StreamWriter(fs))
-            {
-                sw.WriteLine("{0,10} {1,10} {2,10} {3,10}\n", "Name", "Type", "Position", "Line");
-                foreach (Lexem lit in _literals)
-                    sw.WriteLine("{0,10} {1,10} {2,10} {3,10}", lit.Name, lit.LiteralType, lit.CodePosition, lit.LineNumber);
-            }
         }
     }
 }

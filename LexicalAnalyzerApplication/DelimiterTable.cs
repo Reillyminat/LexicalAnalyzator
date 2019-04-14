@@ -32,7 +32,7 @@ namespace LexicalAnalyzerApplication
 
         public bool FindSkip(string str)
         {
-            if (str == " " || str == "\n" || str == "\t")
+            if (str == " " || str == "\n" || str == "\t" || str=="\r")
                 return true;
             return false;
         }
