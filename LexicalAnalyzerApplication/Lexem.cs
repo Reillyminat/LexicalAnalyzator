@@ -36,13 +36,14 @@
             _subClass = subClass;
         }
 
-        public Lexem(string name, LexemKind lexemKind, int codePosition, int lineNumber, LexemType lexemType)
+        public Lexem(string name, LexemKind lexemKind, int codePosition, int lineNumber, int subClass, LexemType lexemType)
         {
             _lexemKind = lexemKind;
             _codePosition = codePosition;
             _lineNumber = lineNumber;
             _name = name;
             _lexemType = lexemType;
+            _subClass = subClass;
         }
     }
 }

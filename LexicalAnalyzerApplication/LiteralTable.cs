@@ -27,22 +27,10 @@ namespace LexicalAnalyzerApplication
             {
                 return LexemType.Logic;
             }
-            if (Regex.IsMatch(lexem[0].ToString(), "[\"]"))
-                if (Regex.IsMatch(lexem[lexem.Length - 1].ToString(), "[\"]"))
-                {
-                    for (int i = 1; i < lexem.Length - 1; i++)
-                    {
-                        if (Regex.IsMatch(lexem[i].ToString(), "[\"]"))
-                            return LexemType.Error;
-                    }
-                    return LexemType.Symbol;
-                }
-            if (Regex.IsMatch(lexem[0].ToString(), "[^0-9]"))
-                return LexemType.Error;
+
             bool dotContaining=false;
             foreach (char t in lexem)
             {
-                Console.WriteLine(t);
                 if (Regex.IsMatch(t.ToString(), "[^0-9]"))
                 {
                     if ((t.ToString() == ".") && (dotContaining == false))

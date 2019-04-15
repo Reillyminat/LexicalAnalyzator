@@ -38,7 +38,7 @@ namespace LexicalAnalyzerApplication
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 int i = 0;
-                sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10}\n", "№","Name", "Line", "Position", "SubClass");
+                sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10} {5,-10}\n", "№","Name", "Line", "Position", "LexemKind", "SubClass");
                 foreach (Lexem lex in _lexems)
                 {
                     i++;

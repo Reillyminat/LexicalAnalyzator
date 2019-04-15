@@ -38,5 +38,6 @@ namespace LexicalAnalyzerApplication
         public int CodePosition { get => _code_position;  }
         public string Name { get => _name;  }
         public int NumberOfRepeats { get => _number_of_repeats; set => _number_of_repeats = value; }
+        public void AddLineNumber(int line) { _line_number.Add(line); }
     }
 }
