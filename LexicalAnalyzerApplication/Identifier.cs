@@ -13,7 +13,7 @@ namespace LexicalAnalyzerApplication
         int _code_position;
         int _subClass;
         int _number_of_repeats;
-        int _line_number;
+        List<int> _line_number;
         int _descriptor;
         int _number_of_param;
         List<string> _parameters;
@@ -22,19 +22,21 @@ namespace LexicalAnalyzerApplication
         {
             _name = "";
             _code_position = -1;
-            _line_number = -1;
+            _line_number = null;
+            _number_of_repeats=1;
         }
 
         public Identifier(string name, int code_position, int line_number)
         {
             _name = name;
+            _line_number = new List<int>();
             _code_position = code_position;
-            _line_number = line_number;
+            _line_number.Add(line_number);
         }
         public string get() { return _name; }
-        public int LineNumber { get => _line_number;}
+        public List<int> LineNumber { get => _line_number;}
         public int CodePosition { get => _code_position;  }
         public string Name { get => _name;  }
-        public int NumberOfRepeats { get => _number_of_repeats; }
+        public int NumberOfRepeats { get => _number_of_repeats; set => _number_of_repeats = value; }
     }
 }

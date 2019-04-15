@@ -24,6 +24,11 @@ namespace LexicalAnalyzerApplication
             _idents.Add(ident);
         }
 
+        public Identifier FindIdent(string name)
+        {
+            return _idents.Find(x => x.Name == name);
+        }
+
         public bool Existance(string name, ref int subClass)
         {
             Identifier found = _idents.Find(x => x.Name == name);

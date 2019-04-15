@@ -47,8 +47,8 @@ namespace LexicalAnalyzerApplication
             string _subString = "";
             bool foundDelimiter = false;
             string chr = "";
-            bool foundDot = false;
             int subClass = 0;
+            bool foundSkip = false;
             int delimeterSubClass=0;
             if (_code.Length == _lexemBegin)
                 return LexemAnalyzerState.EOF;
@@ -72,6 +72,7 @@ namespace LexicalAnalyzerApplication
                 if ((_lexemBegin + _forward) >= _code.Length - 1)
                 {
                     foundDelimiter = true;
+                    foundSkip = true;
                     chr = _code[_lexemBegin + _forward].ToString();
 
                     if (!_delimiterTable.FindSkip(chr) && !_delimiterTable.FindSkip(_subString))
@@ -82,13 +83,6 @@ namespace LexicalAnalyzerApplication
                 }
                 else
                 {
-                    if (chr == ".")
-                    {
-                        foundDelimiter = true;
-                        foundDot = true;
-                    }
-                    else
-                    {
                         if (chr == "\"")
                         {
                             chr = _code[_lexemBegin + ++_forward].ToString();
@@ -106,23 +100,21 @@ namespace LexicalAnalyzerApplication
                             _lexemBegin += _forward;
                             return LexemAnalyzerState.OK;
                         }
+                        foundSkip = _delimiterTable.FindSkip(chr);
                         foundDelimiter = _delimiterTable.Find(chr, ref delimeterSubClass);
                     }
-                }
 
                 if (foundDelimiter)
                 {
-                    if(delimeterSubClass==9)
-                        position = 0;
-
                     //Count '\n' before lexem
                     lexemLinePositon = CountLexemLinePosition(_lexemBegin);
+                    position=CalculateLexemPositionInLine(_lexemBegin);
                     if (_keyWordsTable.Find(_subString, ref subClass))
                     {
                         line = lexemLinePositon;
-                        position++;
-                        _lexemTable.Add(new Lexem(_subString, LexemKind.KeyWord, _lexemBegin, lexemLinePositon, subClass));
-                        _lexemTable.Add(new Lexem(chr, LexemKind.Delimeter, _lexemBegin, lexemLinePositon, delimeterSubClass));
+                        _lexemTable.Add(new Lexem(_subString, LexemKind.KeyWord, position, lexemLinePositon, subClass));
+                        if(!foundSkip)
+                            _lexemTable.Add(new Lexem(chr, LexemKind.Delimeter, position, lexemLinePositon, delimeterSubClass));
                         _lexemBegin += _forward + 1;
                         return LexemAnalyzerState.OK;
                     }
@@ -130,12 +122,14 @@ namespace LexicalAnalyzerApplication
                     if (IdentTable.Find(_subString))
                     {
                         line = lexemLinePositon;
-                        position++;
                         lexemLinePositon = CountLexemLinePosition(_lexemBegin);
                         if (IdentTable.Existance(_subString, ref subClass))
                         {
+                            Identifier ident = _identTable.FindIdent(_subString);
+                            ident.NumberOfRepeats += 1;
                             _lexemTable.Add(new Lexem(_subString, LexemKind.Identifier, position, lexemLinePositon, subClass));
-                            _lexemTable.Add(new Lexem(chr, LexemKind.Delimeter, _lexemBegin, lexemLinePositon, delimeterSubClass));
+                            if (!foundSkip)
+                                _lexemTable.Add(new Lexem(chr, LexemKind.Delimeter, _lexemBegin+_forward, lexemLinePositon, delimeterSubClass));
                             _lexemBegin += _forward + 1;
                             return LexemAnalyzerState.OK;
                         }
@@ -165,25 +159,19 @@ namespace LexicalAnalyzerApplication
                             }
                         }*/
 
-                        _identTable.Add(new Identifier(_subString, _lexemBegin, lexemLinePositon));
-                        _lexemTable.Add(new Lexem(_subString, LexemKind.Identifier, _lexemBegin, lexemLinePositon, subClass));
-                        _lexemTable.Add(new Lexem(chr, LexemKind.Delimeter, _lexemBegin, lexemLinePositon, delimeterSubClass));
-                        if (foundDot == true)
-                        {
-                            lexemLinePositon = CountLexemLinePosition(_lexemBegin);
-                            _lexemTable.Add(new Lexem(".", LexemKind.Operation, _lexemBegin + _forward, lexemLinePositon, 12));
-                        }
+                        _identTable.Add(new Identifier(_subString, position, lexemLinePositon));
+                        _lexemTable.Add(new Lexem(_subString, LexemKind.Identifier, position, lexemLinePositon, subClass));
+                        if (!foundSkip)
+                            _lexemTable.Add(new Lexem(chr, LexemKind.Delimeter, position + _forward, lexemLinePositon, delimeterSubClass));
                         _lexemBegin += _forward + 1;
                         return LexemAnalyzerState.OK;
                     }
 
                     literalType = LiteralTable.Find(_subString);
-
                     if (literalType != LexemType.Error)
                     {
                         line = lexemLinePositon;
-                        position++;
-                        _lexemTable.Add(new Lexem(_subString, LexemKind.SimpleType, _lexemBegin, lexemLinePositon, literalType));
+                        _lexemTable.Add(new Lexem(_subString, LexemKind.SimpleType, position, lexemLinePositon, literalType));
                         _lexemBegin += _forward + 1;
                         return LexemAnalyzerState.OK;
                     }
@@ -191,8 +179,7 @@ namespace LexicalAnalyzerApplication
                     if (_operationTable.Find(_subString, ref subClass))
                     {
                         line = lexemLinePositon;
-                        position++;
-                        _lexemTable.Add(new Lexem(_subString, LexemKind.Operation, _lexemBegin, lexemLinePositon,subClass));
+                        _lexemTable.Add(new Lexem(_subString, LexemKind.Operation, position, lexemLinePositon,subClass));
                         _lexemBegin += _forward + 1;
                         return LexemAnalyzerState.OK;
                     }
@@ -200,12 +187,10 @@ namespace LexicalAnalyzerApplication
                 else
                 {
                     _subString += chr;
+                    _forward++;
                 }
-
                 if (_subString.Length > 100)
                     return LexemAnalyzerState.SizeError;
-
-                _forward++;
             }
             while (!foundDelimiter);
             return LexemAnalyzerState.IdentifyError;
@@ -223,6 +208,24 @@ namespace LexicalAnalyzerApplication
                 if (i == posEnd)
                     break;
             }
+            return count;
+        }
+
+        private int CalculateLexemPositionInLine(int currentLexemPosition)
+        {
+            int count = 0;
+
+            if (currentLexemPosition >= _code.Length)
+                return -1;
+               
+            for (int i = currentLexemPosition; i > 0; i--)
+            {
+                if (_code[i] == '\n')
+                    break;
+
+                count++;
+            }
+
             return count;
         }
 
