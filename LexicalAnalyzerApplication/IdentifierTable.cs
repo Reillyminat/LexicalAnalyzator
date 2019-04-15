@@ -23,26 +23,17 @@ namespace LexicalAnalyzerApplication
         {
             _idents.Add(ident);
         }
-        public IdentifierKind IdentifyType(string chr)
-        {
-            if (chr == "[")
-            {
-                return IdentifierKind.Array;
-            }
-            if (chr == "(")
-            {
-                return IdentifierKind.Function;
-            }
-            return IdentifierKind.SimpleType;
-        }
 
-        public bool Existance(string name)
+        public bool Existance(string name, ref int subClass)
         {
             Identifier found = _idents.Find(x => x.Name == name);
-            
             if (found == null)
                 return false;
-            else return true;
+            else
+            {
+                subClass = _idents.FindIndex(x => x.Name.Equals(name));
+                return true;
+            }
         }
         public bool Find(string name)
         {
@@ -60,12 +51,16 @@ namespace LexicalAnalyzerApplication
 
         public void SaveToFile()
         {
-            using (FileStream fs = new FileStream(@"IdentifierTable.txt", FileMode.Append, FileAccess.Write))
+            using (FileStream fs = new FileStream(@"IdentifierTable.txt", FileMode.Create, FileAccess.Write))
             using (StreamWriter sw = new StreamWriter(fs))
             {
-                sw.WriteLine("{0,-10} {1,-10} {2,-10} {3,-10} {4,-10} {5,-10} {6,-10} {7,-10}\n", "Name", "Kind", "Position", "Line", "Descriptor", "Number_of_par", "Parameters", "Param_types");
+                int i = 0;
+                sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10} {5,10}\n", "№","Name", "Position", "Line", "Repeats", "Extended_info");
                 foreach (Identifier id in _idents)
-                    sw.WriteLine("{0,-10} {1,-10} {2,-10} {3,-10} {4,-10} {5,-10}",id.Name,id.KindNumber,id.CodePosition,id.LineNumber, 0, id.NumberOfParam);
+                {
+                    i++;
+                    sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10} ", i, id.Name, id.CodePosition, id.LineNumber, id.NumberOfRepeats);
+                }
                 sw.WriteLine();
             }
         }

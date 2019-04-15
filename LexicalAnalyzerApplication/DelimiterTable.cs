@@ -16,14 +16,17 @@ namespace LexicalAnalyzerApplication
 
             _delimeters.Add("{");
             _delimeters.Add("}");
+            _delimeters.Add(";");
+            _delimeters.Add(",");
+            _delimeters.Add("[");
+            _delimeters.Add("]");
+            _delimeters.Add("(");
+            _delimeters.Add(")");
             _delimeters.Add(" ");
             _delimeters.Add("\n");
             _delimeters.Add("\r");
             _delimeters.Add("\t");
-            _delimeters.Add(";");
-            _delimeters.Add(",");/*
-            _delimeters.Add("[");
-            _delimeters.Add("]");*/
+            _delimeters.Add(".");
         }
 
         public int Count { get => _delimeters.Count; }
@@ -34,14 +37,17 @@ namespace LexicalAnalyzerApplication
                 return true;
             return false;
         }
-        public bool Find(string str)
+        public bool Find(string str, ref int subClass)
         {
             string found_name = _delimeters.Find(x => x == str);
 
             if (found_name == null)
                 return false;
             else
+            {
+                subClass = _delimeters.IndexOf(str);
                 return true;
+            }
         }
     }
 }

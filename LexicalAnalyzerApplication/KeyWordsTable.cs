@@ -29,7 +29,7 @@ namespace LexicalAnalyzerApplication
         }
         public int Count { get => _keyWordsTable.Count; }
 
-        public bool Find(string str)
+        public bool Find(string str, ref int subClass)
         {
             string found_name = _keyWordsTable.Find(x => x == str);
 
@@ -37,6 +37,7 @@ namespace LexicalAnalyzerApplication
                 return false;
             else
             {
+                subClass = _keyWordsTable.IndexOf(str);
                 return true;
             }
         }

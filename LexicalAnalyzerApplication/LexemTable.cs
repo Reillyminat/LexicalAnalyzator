@@ -34,12 +34,16 @@ namespace LexicalAnalyzerApplication
 
         public void SaveToFile()
         {
-            using (FileStream fs = new FileStream(@"LexemTable.txt", FileMode.Append, FileAccess.Write))
+            using (FileStream fs = new FileStream(@"LexemTable.txt", FileMode.Create, FileAccess.Write))
             using (StreamWriter sw = new StreamWriter(fs))
             {
-                sw.WriteLine("{0,-10} {1,-10} {2,-10} {3,-10} {4,-10}\n", "Name", "Kind", "Type", "Position", "Line");
+                int i = 0;
+                sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10}\n", "№","Line", "Position", "Name", "SubClass");
                 foreach (Lexem lex in _lexems)
-                    sw.WriteLine("{0,-10} {1,-10} {2,-10} {3,-10} {4,-10}", lex.Name, lex.LexemKind, lex.LexemType, lex.CodePosition, lex.LineNumber);
+                {
+                    i++;
+                    sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10}", i, lex.LineNumber,  lex.CodePosition, lex.Name, lex.SubClass);
+                }
                 sw.WriteLine();
             }
         }

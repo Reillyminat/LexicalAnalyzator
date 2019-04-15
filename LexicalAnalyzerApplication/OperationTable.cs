@@ -27,21 +27,21 @@ namespace LexicalAnalyzerApplication
             _operations.Add("==");
             _operations.Add("<=");
             _operations.Add(">=");
-            _operations.Add(".");
-            _operations.Add("(");
-            _operations.Add(")");
         }
 
         public int Count { get => _operations.Count; }
 
-        public bool Find(string str)
+        public bool Find(string str, ref int subClass)
         {
             string foud_name = _operations.Find(x => x == str);
 
             if (foud_name == null)
                 return false;
             else
+            {
+                subClass=_operations.IndexOf(str);
                 return true;
+            }
         }
 
     }
