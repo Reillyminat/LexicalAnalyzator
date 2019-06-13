@@ -27,13 +27,14 @@ namespace LexicalAnalyzerApplication
             _delimeters.Add("\r");
             _delimeters.Add("\t");
             _delimeters.Add(".");
+            _delimeters.Add("\"");
         }
 
         public int Count { get => _delimeters.Count; }
 
         public bool FindSkip(string str)
         {
-            if (str == " " || str == "\n" || str == "\t" || str=="\r")
+            if (str == " " || str == "\t" || str=="\r")
                 return true;
             return false;
         }

@@ -25,9 +25,15 @@ namespace LexicalAnalyzerApplication
             frontStack = new Stack<string>();
             toolStripButton1.Enabled = false;
             toolStripButton2.Enabled = false;
-
+            toolStripStatusLabel1.Text = "";
             fileContent = string.Empty;
-
+            fileContent = System.IO.File.ReadAllText(@"D:\test.txt", Encoding.Default);
+            richTextBoxLineNumbers.Text = "";
+            richTextBoxCode.Text = fileContent;
+            for (int i = 1; i < richTextBoxCode.Lines.Length + 1; i++)
+            {
+                richTextBoxLineNumbers.Text = richTextBoxLineNumbers.Text + i.ToString() + "\n";
+            }
             lexicalAnalyzer = new LexicalAnalyzer();
         }
 
@@ -46,18 +52,9 @@ namespace LexicalAnalyzerApplication
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var fileContent = string.Empty;
-            var filePath = string.Empty;
-            filePath = @"D:\test.txt";
-
-            fileContent = System.IO.File.ReadAllText(filePath, Encoding.Default);
-
-            richTextBoxCode.Text = fileContent;
-            richTextBoxCode_TextChanged(sender, e);
-
             /* using (OpenFileDialog openFileDialog = new OpenFileDialog())
              {
-                 //openFileDialog.InitialDirectory = "c:\\";
+                 //openFileDialog.InitialDirectory = "d:\\";
                  openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                  //openFileDialog.RestoreDirectory = true;
 
@@ -73,21 +70,23 @@ namespace LexicalAnalyzerApplication
                      {
                          fileContent = reader.ReadToEnd();
                      }
-                 }*/
+                 }
+             }*/
         }
         private void buttonTranslate_Click(object sender, EventArgs e)
         {
             backStack.Push(richTextBoxCode.Text);
 
             lexicalAnalyzer = new LexicalAnalyzer();
-
+            LexemAnalyzerState state = LexemAnalyzerState.OK; ;
             lexicalAnalyzer.SetCode(richTextBoxCode.Text);
             bool finish=true;
             int line=0;
-            int position=0;
+            int position=1;
             while (finish)
             {
-                switch (lexicalAnalyzer.Tokenizer(ref line, ref position))
+                state = lexicalAnalyzer.Tokenizer(ref line, ref position);
+                switch (state)
                 {
                     case LexemAnalyzerState.SizeError:
                         MessageBox.Show("Ошибка лексического анализа. Слишком длинная лексема.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -102,6 +101,29 @@ namespace LexicalAnalyzerApplication
                     case LexemAnalyzerState.EOF:
                         finish = false;
                         break;
+                }
+            }
+            if (state == LexemAnalyzerState.EOF)
+            {
+                SA sA = new SA(lexicalAnalyzer);
+                sA.ReadFromFile();
+                line = 0;
+                position = 0;
+                finish = true;
+                while (finish)
+                {
+                    switch (sA.Parse(ref line, ref position))
+                    {
+                        case ParsingState.IdentifyError:
+                            toolStripStatusLabel1.Text = "Ошибка синтаксического анализа. Невозможно распознать лексему " + lexicalAnalyzer.LexemTable.Lexems[position].Name +
+                                " (строка " + lexicalAnalyzer.LexemTable.Lexems[position].LineNumber + " , позиция " + lexicalAnalyzer.LexemTable.Lexems[position].CodePosition + " ) в состоянии " + line;
+                            finish = false;
+                            break;
+                        case ParsingState.OK:
+                            toolStripStatusLabel1.Text = "Синтаксический анализ прошёл успешно";
+                            finish = false;
+                            break;
+                    }
                 }
             }
         }

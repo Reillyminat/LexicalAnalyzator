@@ -10,21 +10,10 @@ namespace LexicalAnalyzerApplication
     public class LexemTable
     {
         List<Lexem> _lexems;
-
+        public List<Lexem> Lexems { get => _lexems; }
         public LexemTable()
         {
             _lexems = new List<Lexem>();
-        }
-
-        public bool Find(Lexem lexem)
-        {
-            var answer = _lexems.Find(x=> lexem.LexemType == x.LexemType);
-
-            if (answer != null)
-                return true;
-            else
-                return false;
-
         }
 
         public void Add(Lexem lexem)
@@ -38,11 +27,11 @@ namespace LexicalAnalyzerApplication
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 int i = 0;
-                sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10} {5,-10}\n", "№","Name", "Line", "Position", "LexemKind", "SubClass");
+                sw.WriteLine("{0,-3} {1,-25} {2,-10} {3,-10} {4,-10} {5,-10}\n", "№","Name", "Line", "Position", "LexemKind", "SubClass");
                 foreach (Lexem lex in _lexems)
                 {
                     i++;
-                    sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10} {5,10}", i, lex.Name, lex.LineNumber,  lex.CodePosition, lex.LexemType, lex.SubClass);
+                    sw.WriteLine("{0,-3} {1,-25} {2,-10} {3,-10} {4,-10} {5,-10}", i, lex.Name, lex.LineNumber,  lex.CodePosition, lex.LexemKind, lex.SubClass);
                 }
                 sw.WriteLine();
             }

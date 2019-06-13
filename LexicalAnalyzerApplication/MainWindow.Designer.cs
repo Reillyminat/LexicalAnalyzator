@@ -42,15 +42,18 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonTranslate
             // 
             this.buttonTranslate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonTranslate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonTranslate.Location = new System.Drawing.Point(294, 397);
+            this.buttonTranslate.Location = new System.Drawing.Point(691, 572);
             this.buttonTranslate.Name = "buttonTranslate";
             this.buttonTranslate.Size = new System.Drawing.Size(90, 29);
             this.buttonTranslate.TabIndex = 0;
@@ -65,7 +68,7 @@
             this.saveTablesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(404, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(793, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -104,14 +107,14 @@
             // lexemToolStripMenuItem
             // 
             this.lexemToolStripMenuItem.Name = "lexemToolStripMenuItem";
-            this.lexemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lexemToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.lexemToolStripMenuItem.Text = "Lexem";
             this.lexemToolStripMenuItem.Click += new System.EventHandler(this.lexemToolStripMenuItem_Click);
             // 
             // identifierToolStripMenuItem
             // 
             this.identifierToolStripMenuItem.Name = "identifierToolStripMenuItem";
-            this.identifierToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.identifierToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.identifierToolStripMenuItem.Text = "Identifier";
             this.identifierToolStripMenuItem.Click += new System.EventHandler(this.identifierToolStripMenuItem_Click);
             // 
@@ -123,7 +126,7 @@
             this.richTextBoxLineNumbers.Location = new System.Drawing.Point(12, 52);
             this.richTextBoxLineNumbers.Name = "richTextBoxLineNumbers";
             this.richTextBoxLineNumbers.ReadOnly = true;
-            this.richTextBoxLineNumbers.Size = new System.Drawing.Size(44, 339);
+            this.richTextBoxLineNumbers.Size = new System.Drawing.Size(44, 514);
             this.richTextBoxLineNumbers.TabIndex = 4;
             this.richTextBoxLineNumbers.Text = "";
             // 
@@ -136,7 +139,7 @@
             this.richTextBoxCode.Location = new System.Drawing.Point(62, 52);
             this.richTextBoxCode.Name = "richTextBoxCode";
             this.richTextBoxCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.richTextBoxCode.Size = new System.Drawing.Size(330, 339);
+            this.richTextBoxCode.Size = new System.Drawing.Size(719, 514);
             this.richTextBoxCode.TabIndex = 5;
             this.richTextBoxCode.Text = "";
             this.richTextBoxCode.VScroll += new System.EventHandler(this.richTextBox2_VScroll);
@@ -149,7 +152,7 @@
             this.toolStripButton2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(404, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(793, 25);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -173,11 +176,28 @@
             this.toolStripButton2.Text = "toolStripButton2";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 623);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(793, 22);
+            this.statusStrip1.TabIndex = 7;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 430);
+            this.ClientSize = new System.Drawing.Size(793, 645);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.richTextBoxCode);
             this.Controls.Add(this.richTextBoxLineNumbers);
@@ -190,6 +210,8 @@
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,6 +232,8 @@
         private System.Windows.Forms.ToolStripMenuItem saveTablesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lexemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem identifierToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 

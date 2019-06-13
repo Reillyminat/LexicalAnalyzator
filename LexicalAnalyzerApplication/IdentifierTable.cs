@@ -60,13 +60,13 @@ namespace LexicalAnalyzerApplication
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 int i = 0;
-                sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10}\n", "№","Name", "Position", "Line", "Repeats");
+                sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-25} {4,-10}\n", "№","Name", "Position", "Line", "Repeats");
                 foreach (Identifier id in _idents)
                 {
                     i++;
                     string[] array = id.LineNumber.Select(n => n.ToString()).ToArray();
                     string res=string.Join(", ", array);
-                    sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-10} {4,-10} ", i, id.Name, id.CodePosition, res, id.NumberOfRepeats);
+                    sw.WriteLine("{0,-3} {1,-10} {2,-10} {3,-25} {4,-10} ", i, id.Name, id.CodePosition, res, id.NumberOfRepeats);
                 }
                 sw.WriteLine();
             }
